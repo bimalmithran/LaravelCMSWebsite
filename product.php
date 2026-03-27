@@ -169,13 +169,18 @@ require_once __DIR__ . '/templates/header-inner.php';
                         <div class="qty-btn_area">
                             <ul>
                                 <li>
-                                    <a class="qty-cart_btn" href="cart.php"
+                                    <a class="qty-cart_btn btn-add-to-cart"
+                                       href="javascript:void(0)"
+                                       data-product-id="<?= $id ?>"
+                                       data-qty-source="product-detail"
                                        <?= $product['stock'] === 0 ? 'style="opacity:.5;pointer-events:none"' : '' ?>>
                                         <?= $product['stock'] > 0 ? 'Add To Cart' : 'Out of Stock' ?>
                                     </a>
                                 </li>
                                 <li>
-                                    <a class="qty-wishlist_btn" href="wishlist.php"
+                                    <a class="qty-wishlist_btn btn-add-to-wishlist"
+                                       href="javascript:void(0)"
+                                       data-product-id="<?= $id ?>"
                                        data-bs-toggle="tooltip" title="Add To Wishlist">
                                         <i class="ion-android-favorite-outline"></i>
                                     </a>

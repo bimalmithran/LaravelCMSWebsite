@@ -29,6 +29,8 @@ $storefront       = new \App\Services\StorefrontService($apiClient);
 $headerService    = new \App\Services\HeaderService($apiClient);
 $footerService    = new \App\Services\FooterService($apiClient);
 $authService      = new \App\Services\AuthService($apiClient);
+$cartService      = new \App\Services\CartService($apiClient);
+$wishlistService  = new \App\Services\WishlistService($apiClient);
 $currencySymbol   = (string) ($config["currency_symbol"] ?? "₹");
 
 // Convenience helpers available to every page

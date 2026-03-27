@@ -71,10 +71,10 @@
                             <div class="hiraola-group_btn">
                                 <ul>
                                     <li>
-                                        <a href="cart.html" class="add-to_cart">Add To Cart</a>
+                                        <a href="javascript:void(0)" class="add-to_cart btn-add-to-cart" data-product-id="" data-qv-btn="cart">Add To Cart</a>
                                     </li>
                                     <li>
-                                        <a href="wishlist.html">
+                                        <a href="javascript:void(0)" class="btn-add-to-wishlist" data-product-id="" data-qv-btn="wishlist">
                                             <i class="ion-android-favorite-outline"></i>
                                         </a>
                                     </li>

@@ -52,7 +52,8 @@
             <div class="add-actions">
                 <ul>
                     <li>
-                        <a class="hiraola-add_cart" href="cart.php"
+                        <a class="hiraola-add_cart btn-add-to-cart" href="javascript:void(0)"
+                           data-product-id="<?= (int) ($productCard['id'] ?? 0) ?>"
                            data-bs-toggle="tooltip" data-placement="top" title="Add To Cart">
                             Add To Cart
                         </a>
@@ -74,7 +75,8 @@
                         </a>
                     </li>
                     <li>
-                        <a class="hiraola-add_compare" href="wishlist.php"
+                        <a class="hiraola-add_compare btn-add-to-wishlist" href="javascript:void(0)"
+                           data-product-id="<?= (int) ($productCard['id'] ?? 0) ?>"
                            data-bs-toggle="tooltip" data-placement="top" title="Add To Wishlist">
                             <i class="ion-android-favorite-outline"></i>
                         </a>

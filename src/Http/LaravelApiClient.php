@@ -38,6 +38,28 @@ class LaravelApiClient implements ApiClientInterface
         return $this->executeRequest("POST", $url, $data, $token);
     }
 
+    public function getWithAuth(string $endpoint, array $queryParams, string $token): ?array
+    {
+        $url = $this->baseUrl . "/" . ltrim($endpoint, "/");
+        if (!empty($queryParams)) {
+            $url .= "?" . http_build_query($queryParams);
+        }
+        $response = $this->executeRequest("GET", $url, [], $token);
+        return $this->respondGetData($response);
+    }
+
+    public function putWithAuth(string $endpoint, array $data, string $token): ?array
+    {
+        $url = $this->baseUrl . "/" . ltrim($endpoint, "/");
+        return $this->executeRequest("PUT", $url, $data, $token);
+    }
+
+    public function deleteWithAuth(string $endpoint, array $data, string $token): ?array
+    {
+        $url = $this->baseUrl . "/" . ltrim($endpoint, "/");
+        return $this->executeRequest("DELETE", $url, $data, $token);
+    }
+
     public function resolveUrl(?string $path): string
     {
         if ($path === null) {
@@ -82,7 +104,7 @@ class LaravelApiClient implements ApiClientInterface
             $headers[] = "Authorization: Bearer " . $bearerToken;
         }
 
-        if ($method === "POST" && !empty($data)) {
+        if (!empty($data)) {
             curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
         }
 
@@ -94,10 +116,17 @@ class LaravelApiClient implements ApiClientInterface
         $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
 
-        if ($httpCode >= 400 || !$response) {
+        if (!$response) {
             return null;
         }
-        return json_decode($response, true);
+        $decoded = json_decode($response, true);
+        // For GET-style callers that use respondGetData, a 4xx decoded response
+        // with success:false is handled there. For POST/PUT/DELETE callers the
+        // actual error payload (message, errors) is returned so they can surface it.
+        if ($httpCode >= 500 && $decoded === null) {
+            return null;
+        }
+        return $decoded;
     }
 
     /**

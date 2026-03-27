@@ -269,5 +269,15 @@ $copyrightYear   = date('Y');
 <!-- Main JS -->
 <script src="assets/js/main.js"></script>
 <script src="assets/js/tagged-products-section.js"></script>
+<!-- Cart / Wishlist JS -->
+<script>
+window.APP_CONFIG = {
+    loggedIn:  <?= !empty($_SESSION['customer_token']) ? 'true' : 'false' ?>,
+    loginUrl:  'login.php',
+    apiOrigin: <?= json_encode(rtrim(preg_replace('/\/api\/v1$/', '', ($config['api_base_url'] ?? '')), '/')) ?>,
+    currency:  <?= json_encode($currencySymbol ?? '₹') ?>
+};
+</script>
+<script src="assets/js/shop.js"></script>
 </body>
 </html>

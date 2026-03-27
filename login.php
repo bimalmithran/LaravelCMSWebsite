@@ -7,6 +7,11 @@ if ($loggedIn) {
     exit;
 }
 
+// Allow pages/JS to pass a ?next= redirect target
+if (!empty($_GET['next'])) {
+    $_SESSION['auth_redirect'] = ltrim($_GET['next'], '/');
+}
+
 $error   = '';
 $success = '';
 

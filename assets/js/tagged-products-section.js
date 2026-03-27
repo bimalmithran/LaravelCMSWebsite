@@ -261,6 +261,10 @@
                     replaceProducts($section, payload.data.products_html, payload.data);
                 }
 
+                if (typeof window.applyWishlistState === 'function') {
+                    window.applyWishlistState();
+                }
+
                 $section.attr(
                     'data-selected-category-id',
                     String(payload.data.selected_category_id || '')

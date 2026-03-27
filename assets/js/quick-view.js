@@ -109,6 +109,9 @@
 
         // Images
         rebuildSliders(product.images || []);
+
+        // Set product-id on cart / wishlist buttons inside the modal
+        $modal.find('[data-qv-btn]').attr('data-product-id', product.id || '');
     }
 
     // ── Loading state ─────────────────────────────────────────────────────────
