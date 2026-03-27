@@ -140,15 +140,53 @@ require_once __DIR__ . '/templates/header-inner.php';
 <?php require_once __DIR__ . '/templates/footer.php'; ?>
 
 <script>
-// Sort select → reload page with new sort param
-document.querySelector('.shop-sort-select')?.addEventListener('change', function () {
-    const params = new URLSearchParams(window.location.search);
-    if (this.value) {
-        params.set('sort', this.value);
-    } else {
-        params.delete('sort');
-    }
-    params.delete('page');
-    window.location.href = 'shop.php?' + params.toString();
-});
+(function ($) {
+    // Sort select → reload page with new sort param
+    // Use jQuery .on() so it captures nice-select's synthetic change event
+    $(document).on('change', '.shop-sort-select', function () {
+        var params = new URLSearchParams(window.location.search);
+        if (this.value) {
+            params.set('sort', this.value);
+        } else {
+            params.delete('sort');
+        }
+        params.delete('page');
+        window.location.href = 'shop.php?' + params.toString();
+    });
+
+    // Price filter: reinitialize with INR symbol and jewelry-appropriate range
+    $(function () {
+        var minPriceVal = <?= json_encode($shopData['min_price']) ?>;
+        var maxPriceVal = <?= json_encode($shopData['max_price']) ?>;
+        var sliderMin = 0;
+        var sliderMax = 500000;
+        var currency = '<?= addslashes($currencySymbol) ?>';
+
+        var initMin = minPriceVal !== null ? minPriceVal : sliderMin;
+        var initMax = maxPriceVal !== null ? maxPriceVal : sliderMax;
+
+        $('#slider-range').slider('destroy');
+        $('#slider-range').slider({
+            range: true,
+            min: sliderMin,
+            max: sliderMax,
+            values: [initMin, initMax],
+            slide: function (event, ui) {
+                $('#amount').val(currency + ui.values[0].toLocaleString('en-IN') + ' – ' + currency + ui.values[1].toLocaleString('en-IN'));
+            }
+        });
+        $('#amount').val(
+            currency + initMin.toLocaleString('en-IN') + ' – ' + currency + initMax.toLocaleString('en-IN')
+        );
+
+        $('#btn-apply-price-filter').on('click', function () {
+            var values = $('#slider-range').slider('values');
+            var params = new URLSearchParams(window.location.search);
+            params.set('min_price', values[0]);
+            params.set('max_price', values[1]);
+            params.delete('page');
+            window.location.href = 'shop.php?' + params.toString();
+        });
+    });
+}(jQuery));
 </script>

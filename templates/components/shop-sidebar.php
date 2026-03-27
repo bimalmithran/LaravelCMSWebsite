@@ -25,6 +25,24 @@
                     <input type="text" id="amount" name="price" placeholder="Select range" readonly />
                 </div>
             </div>
+            <div style="margin-top: 12px;">
+                <a href="javascript:void(0)" id="btn-apply-price-filter"
+                   class="hiraola-btn hiraola-btn_dark"
+                   style="display:inline-block;padding:6px 18px;font-size:13px;">
+                    Filter
+                </a>
+                <?php if (!empty($queryParams['min_price']) || !empty($queryParams['max_price'])): ?>
+                <?php
+                $clearParams = $queryParams;
+                unset($clearParams['min_price'], $clearParams['max_price'], $clearParams['page']);
+                $clearHref = 'shop.php' . ($clearParams ? '?' . http_build_query($clearParams) : '');
+                ?>
+                <a href="<?= htmlspecialchars($clearHref) ?>"
+                   style="margin-left:8px;font-size:12px;color:#888;">
+                    Clear
+                </a>
+                <?php endif; ?>
+            </div>
         </div>
     </div>
 

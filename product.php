@@ -318,43 +318,43 @@ require_once __DIR__ . '/templates/header-inner.php';
                                 <p style="padding: 15px 0;">No reviews yet. Be the first to review this product!</p>
                                 <?php endif; ?>
 
-                                <h2>Write a review</h2>
+                                <h2>Write a Review</h2>
+                                <?php if ($loggedIn): ?>
+                                <div id="review-alert" style="display:none;margin-bottom:12px;padding:10px 14px;border-radius:4px;font-size:14px;"></div>
                                 <form class="form-horizontal" id="form-review">
-                                    <div class="form-group required">
-                                        <div class="col-sm-12 p-0">
-                                            <label>Your Email <span class="required">*</span></label>
-                                            <input class="review-input" type="email" name="con_email" id="con_email" required>
-                                        </div>
-                                    </div>
                                     <div class="form-group required second-child">
                                         <div class="col-sm-12 p-0">
-                                            <label class="control-label">Share your opinion</label>
-                                            <textarea class="review-textarea" name="con_message" id="con_message"></textarea>
-                                            <div class="help-block">
-                                                <span class="text-danger">Note:</span> HTML is not translated!
-                                            </div>
+                                            <label class="control-label">Your Review</label>
+                                            <textarea class="review-textarea" id="review-comment" rows="4"
+                                                placeholder="Share your experience with this product..."></textarea>
                                         </div>
                                     </div>
                                     <div class="form-group last-child required">
                                         <div class="col-sm-12 p-0">
                                             <div class="your-opinion">
-                                                <label>Your Rating</label>
+                                                <label>Your Rating <span class="required">*</span></label>
                                                 <span>
-                                                    <select class="star-rating">
-                                                        <option value="1">1</option>
-                                                        <option value="2">2</option>
-                                                        <option value="3">3</option>
-                                                        <option value="4">4</option>
-                                                        <option value="5">5</option>
+                                                    <select class="star-rating" id="review-rating">
+                                                        <option value="5">5 – Excellent</option>
+                                                        <option value="4">4 – Good</option>
+                                                        <option value="3">3 – Average</option>
+                                                        <option value="2">2 – Poor</option>
+                                                        <option value="1">1 – Terrible</option>
                                                     </select>
                                                 </span>
                                             </div>
                                         </div>
-                                        <div class="hiraola-btn-ps_right">
-                                            <a href="javascript:void(0)" class="hiraola-btn hiraola-btn_dark">Submit Review</a>
+                                        <div class="hiraola-btn-ps_right" style="margin-top:12px;">
+                                            <a href="javascript:void(0)" id="btn-submit-review"
+                                               class="hiraola-btn hiraola-btn_dark">Submit Review</a>
                                         </div>
                                     </div>
                                 </form>
+                                <?php else: ?>
+                                <p style="padding:10px 0;color:#555;">
+                                    <a href="login.php?next=product.php%3Fid=<?= $id ?>">Log in</a> to write a review.
+                                </p>
+                                <?php endif; ?>
                             </div>
                         </div>
 
@@ -393,3 +393,58 @@ require_once __DIR__ . '/templates/header-inner.php';
 <?php require_once __DIR__ . '/templates/components/quick-view-modal.php'; ?>
 
 <?php require_once __DIR__ . '/templates/footer.php'; ?>
+
+<?php if ($loggedIn): ?>
+<script>
+(function ($) {
+    $('#btn-submit-review').on('click', function () {
+        var $btn    = $(this);
+        var rating  = parseInt($('#review-rating').val(), 10);
+        var comment = $.trim($('#review-comment').val());
+
+        if (!rating || rating < 1 || rating > 5) {
+            showReviewAlert('Please select a rating.', false);
+            return;
+        }
+
+        $btn.prop('disabled', true).text('Submitting...');
+
+        $.ajax({
+            url: 'api/review.php',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                product_id: <?= $id ?>,
+                rating:     rating,
+                comment:    comment
+            }),
+            success: function (res) {
+                if (res && res.success) {
+                    showReviewAlert(res.message || 'Review submitted! It will appear after approval.', true);
+                    $('#form-review')[0].reset();
+                    $btn.prop('disabled', true).text('Review Submitted');
+                } else {
+                    showReviewAlert((res && res.message) ? res.message : 'Could not submit review.', false);
+                    $btn.prop('disabled', false).text('Submit Review');
+                }
+            },
+            error: function () {
+                showReviewAlert('Could not submit review. Please try again.', false);
+                $btn.prop('disabled', false).text('Submit Review');
+            }
+        });
+    });
+
+    function showReviewAlert(msg, success) {
+        var $el = $('#review-alert');
+        $el.text(msg)
+           .css({
+               display: 'block',
+               background: success ? '#d4edda' : '#f8d7da',
+               border: '1px solid ' + (success ? '#c3e6cb' : '#f5c6cb'),
+               color: success ? '#155724' : '#721c24'
+           });
+    }
+}(jQuery));
+</script>
+<?php endif; ?>

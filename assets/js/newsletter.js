@@ -8,26 +8,33 @@
     var ERROR_CLASS        = '.mailchimp-error';
     var API_ENDPOINT       = 'api/newsletter-subscribe.php';
 
+    // The .mailchimp-alerts div is a sibling of the form, not inside it.
+    // Use the shared .newsletter-form_wrap parent to find both.
+    function getAlerts($form) {
+        return $form.closest('.newsletter-form_wrap');
+    }
+
     function clearMessages($form) {
-        $form.find(SUBMITTING_CLASS).text('');
-        $form.find(SUCCESS_CLASS).text('');
-        $form.find(ERROR_CLASS).text('');
+        var $wrap = getAlerts($form);
+        $wrap.find(SUBMITTING_CLASS).text('');
+        $wrap.find(SUCCESS_CLASS).text('');
+        $wrap.find(ERROR_CLASS).text('');
     }
 
     function showSubmitting($form) {
         clearMessages($form);
-        $form.find(SUBMITTING_CLASS).text('Subscribing...');
+        getAlerts($form).find(SUBMITTING_CLASS).text('Subscribing...');
     }
 
     function showSuccess($form, message) {
         clearMessages($form);
-        $form.find(SUCCESS_CLASS).text(message);
+        getAlerts($form).find(SUCCESS_CLASS).text(message);
         $form.find(EMAIL_SELECTOR).val('');
     }
 
     function showError($form, message) {
         clearMessages($form);
-        $form.find(ERROR_CLASS).text(message);
+        getAlerts($form).find(ERROR_CLASS).text(message);
     }
 
     $(document).on('submit', FORM_SELECTOR, function (e) {

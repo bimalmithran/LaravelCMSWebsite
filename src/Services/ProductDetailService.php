@@ -161,7 +161,7 @@ class ProductDetailService
         );
 
         return array_values(array_map(fn(array $r): array => [
-            'author'  => (string) ($r['user']['name'] ?? 'Customer'),
+            'author'  => (string) ($r['customer']['first_name'] ?? $r['user']['name'] ?? 'Customer'),
             'comment' => (string) ($r['comment'] ?? ''),
             'rating'  => max(0, min(5, (int) ($r['rating'] ?? 0))),
             'date'    => (string) ($r['created_at'] ?? ''),
