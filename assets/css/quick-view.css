@@ -1,0 +1,69 @@
+/* ── Quick View Modal Overrides ─────────────────────────────────────────────
+   These rules override the theme's hardcoded modal height so the modal
+   sizes to its content (with a max-height cap), and standardise product
+   image display so different image dimensions render uniformly.
+────────────────────────────────────────────────────────────────────────── */
+
+/* 1. Remove the hardcoded heights that force unnecessary scroll.
+      Use max-height instead so the modal grows with content up to 90vh,
+      and only scrolls when content truly overflows. */
+.modal-wrapper .modal-dialog .modal-content {
+    height: auto !important;
+    max-height: 90vh !important;
+    overflow-y: auto !important;
+}
+
+@media (max-width: 1500px) {
+    .modal-wrapper .modal-dialog .modal-content {
+        height: auto !important;
+        max-height: 90vh !important;
+    }
+}
+
+/* 2. Fix uniform image display in the main slider.
+      A consistent fixed height with object-fit: contain ensures images of
+      any aspect ratio are scaled uniformly without cropping or distortion. */
+#exampleModalCenter .sp-img_slider-2 .single-slide {
+    height: 380px;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    overflow: hidden;
+}
+
+#exampleModalCenter .sp-img_slider-2 .single-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* 3. Uniform thumbnail nav images. */
+#exampleModalCenter .sp-img_slider-nav .single-slide {
+    height: 80px;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+#exampleModalCenter .sp-img_slider-nav .single-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* 4. On smaller screens reduce the main slide height so the full modal
+      still fits within the viewport without needing to scroll. */
+@media (max-width: 991px) {
+    #exampleModalCenter .sp-img_slider-2 .single-slide {
+        height: 260px;
+    }
+}
+
+@media (max-width: 575px) {
+    #exampleModalCenter .sp-img_slider-2 .single-slide {
+        height: 220px;
+    }
+}

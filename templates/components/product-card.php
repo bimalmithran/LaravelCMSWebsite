@@ -43,6 +43,7 @@
                     </li>
                     <li
                         class="quick-view-btn"
+                        data-product-id="<?= htmlspecialchars((string) ($productCard['id'] ?? '')) ?>"
                         data-bs-toggle="modal"
                         data-bs-target="#exampleModalCenter"
                     >

@@ -9,6 +9,7 @@ class ProductCardService
     public function __construct(
         StorefrontService $storefront,
         string $fallbackProductImage = "assets/images/product/medium-size/1-1.jpg",
+        private string $currencySymbol = "₹",
     ) {
         $this->storefront = $storefront;
         $this->fallbackProductImage = $fallbackProductImage;
@@ -72,6 +73,7 @@ class ProductCardService
         );
 
         return [
+            "id" => (int) ($product["id"] ?? 0),
             "name" => $name,
             "link" => "single-product.html",
             "primary_image" => $this->resolveImage($product),
@@ -108,6 +110,6 @@ class ProductCardService
 
     private function formatCurrency(float $amount): string
     {
-        return "£" . number_format($amount, 2);
+        return $this->currencySymbol . number_format($amount, 2);
     }
 }

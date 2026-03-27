@@ -36,6 +36,8 @@
     <!-- Main Style CSS -->
     <link rel="stylesheet" href="assets/css/style.css">
     <!-- <link rel="stylesheet" href="assets/css/style.min.css"> -->
+    <!-- Quick View Overrides -->
+    <link rel="stylesheet" href="assets/css/quick-view.css">
 
 </head>
 
@@ -66,9 +68,7 @@
                                     <ul>
                                         <li><a href="javascript:void(0)">Currency<i class="fa fa-chevron-down"></i></a>
                                             <ul class="ht-dropdown ht-currency">
-                                                <li><a href="javascript:void(0)">€ EUR</a></li>
-                                                <li class="active"><a href="javascript:void(0)">£ Pound Sterling</a></li>
-                                                <li><a href="javascript:void(0)">$ Us Dollar</a></li>
+                                                <li class="active"><a href="javascript:void(0)">₹ Indian Rupee</a></li>
                                             </ul>
                                         </li>
                                         <li><a href="javascript:void(0)">Language <i class="fa fa-chevron-down"></i></a>

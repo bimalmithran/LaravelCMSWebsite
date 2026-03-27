@@ -20,4 +20,7 @@ $apiClient = new \App\Http\LaravelApiClient(
     $config["api_base_url"],
     $config["api_key"],
 );
-$storefront = new \App\Services\StorefrontService($apiClient);
+$storefront       = new \App\Services\StorefrontService($apiClient);
+$headerService    = new \App\Services\HeaderService($apiClient);
+$footerService    = new \App\Services\FooterService($apiClient);
+$currencySymbol   = (string) ($config["currency_symbol"] ?? "₹");

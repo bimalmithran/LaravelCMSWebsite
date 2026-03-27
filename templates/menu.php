@@ -1,6 +1,6 @@
 <?php
 
-$menus = $storefront->getMenus(); ?>
+$menus = $storefront->getMenus('header'); ?>
 
 <?php foreach ($menus as $menu): ?>
     <?php if ($menu["menu_type"] === "link"): ?>

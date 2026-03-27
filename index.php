@@ -9,7 +9,7 @@ $tripleBanners = $storefront->getBanners("homepage_triple_banners");
 $storeHighlights = array_slice($storefront->getStoreHighlights(), 0, 4);
 
 // Shared card + tagged-listing services used by multiple homepage sections.
-$productCardService = new \App\Services\ProductCardService($storefront);
+$productCardService = new \App\Services\ProductCardService($storefront, currencySymbol: $currencySymbol);
 $taggedProductsSectionService = new \App\Services\TaggedProductsSectionService(
     $storefront,
     $productCardService,

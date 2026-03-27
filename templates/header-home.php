@@ -1,20 +1,25 @@
 <?php
+/** @var \App\Services\StorefrontService $storefront */
+/** @var \App\Services\HeaderService $headerService */
 
-$menus = $storefront->getMenus();
-
+$headerData = $headerService->getHeaderData();
+$menus      = $storefront->getMenus('header');
 $menuService = new \App\Services\MenuService($menus);
-$menuUI = $menuService->buildMenuView();
+
+$logoUrl         = $headerData['logo_url'];
+$faviconUrl      = $headerData['favicon_url'];
+$siteName        = htmlspecialchars($headerData['site_name'], ENT_QUOTES);
+$metaDescription = htmlspecialchars($headerData['meta_description'], ENT_QUOTES);
+$defaultTitle    = $siteName !== '' ? "Home || {$siteName}" : 'Home';
 ?>
 <!doctype html>
 <html class="no-js" lang="en">
     <head>
         <meta charset="utf-8" />
         <meta http-equiv="x-ua-compatible" content="ie=edge" />
-        <title><?= htmlspecialchars(
-            $pageTitle ?? "Home || TT Devassy Jewellery",
-        ) ?></title>
+        <title><?= htmlspecialchars($pageTitle ?? $defaultTitle) ?></title>
         <meta name="robots" content="noindex, follow" />
-        <meta name="description" content="" />
+        <meta name="description" content="<?= $metaDescription ?>" />
         <meta
             name="viewport"
             content="width=device-width, initial-scale=1, shrink-to-fit=no"
@@ -23,7 +28,7 @@ $menuUI = $menuService->buildMenuView();
         <link
             rel="shortcut icon"
             type="image/x-icon"
-            href="assets/images/favicon.ico"
+            href="<?= $faviconUrl !== '' ? htmlspecialchars($faviconUrl, ENT_QUOTES) : 'assets/images/favicon.ico' ?>"
         />
 
         <!-- CSS
@@ -50,7 +55,8 @@ $menuUI = $menuService->buildMenuView();
 
         <!-- Main Style CSS -->
         <link rel="stylesheet" href="assets/css/style.css" />
-        <!-- <link rel="stylesheet" href="assets/css/style.min.css"> -->
+        <!-- Quick View Overrides -->
+        <link rel="stylesheet" href="assets/css/quick-view.css" />
     </head>
 
     <body class="template-color-2">
@@ -66,8 +72,8 @@ $menuUI = $menuService->buildMenuView();
                                 <div class="header-logo">
                                     <a href="index.php">
                                         <img
-                                            src="assets/images/logob.svg"
-                                            alt="TT Devassy Jewellery"
+                                            src="<?= $logoUrl !== '' ? htmlspecialchars($logoUrl, ENT_QUOTES) : 'assets/images/logob.svg' ?>"
+                                            alt="<?= $siteName ?>"
                                         />
                                     </a>
                                 </div>
@@ -77,7 +83,7 @@ $menuUI = $menuService->buildMenuView();
                             >
                                 <div class="main-menu_area">
                                     <nav>
-                                    <?= $menuUI ?>
+                                        <?= $menuService->buildMenuView() ?>
                                     </nav>
                                 </div>
                             </div>
@@ -158,86 +164,18 @@ $menuUI = $menuService->buildMenuView();
                                 <h4>Shopping Cart</h4>
                             </div>
                             <ul class="minicart-list">
-                                <li class="minicart-product">
-                                    <a
-                                        class="product-item_remove"
-                                        href="javascript:void(0)"
-                                        ><i class="ion-android-close"></i
-                                    ></a>
-                                    <div class="product-item_img">
-                                        <img
-                                            src="assets/images/product/small-size/2-1.jpg"
-                                            alt="Hiraola's Product Image"
-                                        />
-                                    </div>
-                                    <div class="product-item_content">
-                                        <a
-                                            class="product-item_title"
-                                            href="shop-left-sidebar.php"
-                                            >Pendant, Made of White Pl...</a
-                                        >
-                                        <span class="product-item_quantity"
-                                            >1 x $120.80</span
-                                        >
-                                    </div>
-                                </li>
-                                <li class="minicart-product">
-                                    <a
-                                        class="product-item_remove"
-                                        href="javascript:void(0)"
-                                        ><i class="ion-android-close"></i
-                                    ></a>
-                                    <div class="product-item_img">
-                                        <img
-                                            src="assets/images/product/small-size/2-2.jpg"
-                                            alt="Hiraola's Product Image"
-                                        />
-                                    </div>
-                                    <div class="product-item_content">
-                                        <a
-                                            class="product-item_title"
-                                            href="shop-left-sidebar.php"
-                                            >Pendant, Made of White Pl...</a
-                                        >
-                                        <span class="product-item_quantity"
-                                            >1 x $120.80</span
-                                        >
-                                    </div>
-                                </li>
-                                <li class="minicart-product">
-                                    <a
-                                        class="product-item_remove"
-                                        href="javascript:void(0)"
-                                        ><i class="ion-android-close"></i
-                                    ></a>
-                                    <div class="product-item_img">
-                                        <img
-                                            src="assets/images/product/small-size/2-3.jpg"
-                                            alt="Hiraola's Product Image"
-                                        />
-                                    </div>
-                                    <div class="product-item_content">
-                                        <a
-                                            class="product-item_title"
-                                            href="shop-left-sidebar.php"
-                                            >Pendant, Made of White Pl...</a
-                                        >
-                                        <span class="product-item_quantity"
-                                            >1 x $120.80</span
-                                        >
-                                    </div>
-                                </li>
+                                <!-- Cart items are populated dynamically by cart JS -->
                             </ul>
                         </div>
                         <div class="minicart-item_total">
                             <span>Subtotal</span>
-                            <span class="ammount">$360.00</span>
+                            <span class="ammount"></span>
                         </div>
                         <div class="minicart-btn_area">
                             <a
                                 href="cart.php"
                                 class="hiraola-btn hiraola-btn_dark hiraola-btn_fullwidth"
-                                >Minicart</a
+                                >View Cart</a
                             >
                         </div>
                         <div class="minicart-btn_area">
@@ -267,632 +205,7 @@ $menuUI = $menuService->buildMenuView();
                                 </form>
                             </div>
                             <nav class="offcanvas-navigation">
-                                <ul class="mobile-menu">
-                                    <li class="menu-item-has-children active">
-                                        <a href="#"
-                                            ><span class="mm-text"
-                                                >Home</span
-                                            ></a
-                                        >
-                                        <ul class="sub-menu">
-                                            <li>
-                                                <a href="index.php">
-                                                    <span class="mm-text"
-                                                        >Home One</span
-                                                    >
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="index.php">
-                                                    <span class="mm-text"
-                                                        >Home Two</span
-                                                    >
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="index.php">
-                                                    <span class="mm-text"
-                                                        >Home Three</span
-                                                    >
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="menu-item-has-children">
-                                        <a href="#">
-                                            <span class="mm-text">Shop</span>
-                                        </a>
-                                        <ul class="sub-menu">
-                                            <li class="menu-item-has-children">
-                                                <a href="#">
-                                                    <span class="mm-text"
-                                                        >Grid View</span
-                                                    >
-                                                </a>
-                                                <ul class="sub-menu">
-                                                    <li>
-                                                        <a
-                                                            href="shop-3-column.php"
-                                                        >
-                                                            <span
-                                                                class="mm-text"
-                                                                >Column
-                                                                Three</span
-                                                            >
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a
-                                                            href="shop-4-column.php"
-                                                        >
-                                                            <span
-                                                                class="mm-text"
-                                                                >Column
-                                                                Four</span
-                                                            >
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a
-                                                            href="shop-left-sidebar.php"
-                                                        >
-                                                            <span
-                                                                class="mm-text"
-                                                                >Left
-                                                                Sidebar</span
-                                                            >
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a
-                                                            href="shop-right-sidebar.php"
-                                                        >
-                                                            <span
-                                                                class="mm-text"
-                                                                >Right
-                                                                Sidebar</span
-                                                            >
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li class="menu-item-has-children">
-                                                <a href="#">
-                                                    <span class="mm-text"
-                                                        >Shop List</span
-                                                    >
-                                                </a>
-                                                <ul class="sub-menu">
-                                                    <li>
-                                                        <a
-                                                            href="shop-list-fullwidth.php"
-                                                        >
-                                                            <span
-                                                                class="mm-text"
-                                                                >Full
-                                                                Width</span
-                                                            >
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a
-                                                            href="shop-list-left-sidebar.php"
-                                                        >
-                                                            <span
-                                                                class="mm-text"
-                                                                >Left
-                                                                Sidebar</span
-                                                            >
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a
-                                                            href="shop-list-right-sidebar.php"
-                                                        >
-                                                            <span
-                                                                class="mm-text"
-                                                                >Right
-                                                                Sidebar</span
-                                                            >
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li class="menu-item-has-children">
-                                                <a href="#">
-                                                    <span class="mm-text"
-                                                        >Single Product
-                                                        Style</span
-                                                    >
-                                                </a>
-                                                <ul class="sub-menu">
-                                                    <li>
-                                                        <a
-                                                            href="single-product-gallery-left.php"
-                                                        >
-                                                            <span
-                                                                class="mm-text"
-                                                                >Gallery
-                                                                Left</span
-                                                            >
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a
-                                                            href="single-product-gallery-right.php"
-                                                        >
-                                                            <span
-                                                                class="mm-text"
-                                                                >Gallery
-                                                                Right</span
-                                                            >
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a
-                                                            href="single-product-tab-style-left.php"
-                                                        >
-                                                            <span
-                                                                class="mm-text"
-                                                                >Tab Style
-                                                                Left</span
-                                                            >
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a
-                                                            href="single-product-tab-style-right.php"
-                                                        >
-                                                            <span
-                                                                class="mm-text"
-                                                                >Tab Style
-                                                                Right</span
-                                                            >
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a
-                                                            href="single-product-sticky-left.php"
-                                                        >
-                                                            <span
-                                                                class="mm-text"
-                                                                >Sticky
-                                                                Left</span
-                                                            >
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a
-                                                            href="single-product-sticky-right.php"
-                                                        >
-                                                            <span
-                                                                class="mm-text"
-                                                                >Sticky
-                                                                Right</span
-                                                            >
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li class="menu-item-has-children">
-                                                <a href="#">
-                                                    <span class="mm-text"
-                                                        >Single Product
-                                                        Type</span
-                                                    >
-                                                </a>
-                                                <ul class="sub-menu">
-                                                    <li>
-                                                        <a
-                                                            href="single-product.php"
-                                                        >
-                                                            <span
-                                                                class="mm-text"
-                                                                >Single
-                                                                Product</span
-                                                            >
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a
-                                                            href="single-product-sale.php"
-                                                        >
-                                                            <span
-                                                                class="mm-text"
-                                                                >Single Product
-                                                                Sale</span
-                                                            >
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a
-                                                            href="single-product-group.php"
-                                                        >
-                                                            <span
-                                                                class="mm-text"
-                                                                >Single Product
-                                                                Group</span
-                                                            >
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a
-                                                            href="single-product-variable.php"
-                                                        >
-                                                            <span
-                                                                class="mm-text"
-                                                                >Single Product
-                                                                Variable</span
-                                                            >
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a
-                                                            href="single-product-affiliate.php"
-                                                        >
-                                                            <span
-                                                                class="mm-text"
-                                                                >Single Product
-                                                                Affiliate</span
-                                                            >
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a
-                                                            href="single-product-slider.php"
-                                                        >
-                                                            <span
-                                                                class="mm-text"
-                                                                >Single Product
-                                                                Slider</span
-                                                            >
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="menu-item-has-children">
-                                        <a href="#">
-                                            <span class="mm-text">Blog</span>
-                                        </a>
-                                        <ul class="sub-menu">
-                                            <li
-                                                class="menu-item-has-children has-children"
-                                            >
-                                                <a href="#">
-                                                    <span class="mm-text"
-                                                        >Grid View</span
-                                                    >
-                                                </a>
-                                                <ul class="sub-menu">
-                                                    <li>
-                                                        <a
-                                                            href="blog-2-column.php"
-                                                        >
-                                                            <span
-                                                                class="mm-text"
-                                                                >Column
-                                                                Two</span
-                                                            >
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a
-                                                            href="blog-3-column.php"
-                                                        >
-                                                            <span
-                                                                class="mm-text"
-                                                                >Column
-                                                                Three</span
-                                                            >
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a
-                                                            href="blog-left-sidebar.php"
-                                                        >
-                                                            <span
-                                                                class="mm-text"
-                                                                >Left
-                                                                Sidebar</span
-                                                            >
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a
-                                                            href="blog-right-sidebar.php"
-                                                        >
-                                                            <span
-                                                                class="mm-text"
-                                                                >Right
-                                                                Sidebar</span
-                                                            >
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li
-                                                class="menu-item-has-children has-children"
-                                            >
-                                                <a href="#">
-                                                    <span class="mm-text"
-                                                        >List View</span
-                                                    >
-                                                </a>
-                                                <ul class="sub-menu">
-                                                    <li>
-                                                        <a
-                                                            href="blog-list-fullwidth.php"
-                                                        >
-                                                            <span
-                                                                class="mm-text"
-                                                                >List
-                                                                Fullwidth</span
-                                                            >
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a
-                                                            href="blog-list-left-sidebar.php"
-                                                        >
-                                                            <span
-                                                                class="mm-text"
-                                                                >List Left
-                                                                Sidebar</span
-                                                            >
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a
-                                                            href="blog-list-right-sidebar.php"
-                                                        >
-                                                            <span
-                                                                class="mm-text"
-                                                                >List Right
-                                                                Sidebar</span
-                                                            >
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li
-                                                class="menu-item-has-children has-children"
-                                            >
-                                                <a href="#">
-                                                    <span class="mm-text"
-                                                        >Blog Details</span
-                                                    >
-                                                </a>
-                                                <ul class="sub-menu">
-                                                    <li>
-                                                        <a
-                                                            href="blog-details-left-sidebar.php"
-                                                        >
-                                                            <span
-                                                                class="mm-text"
-                                                                >Left
-                                                                Sidebar</span
-                                                            >
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a
-                                                            href="blog-details-right-sidebar.php"
-                                                        >
-                                                            <span
-                                                                class="mm-text"
-                                                                >Right
-                                                                Sidebar</span
-                                                            >
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li
-                                                class="menu-item-has-children has-children"
-                                            >
-                                                <a href="#">
-                                                    <span class="mm-text"
-                                                        >Blog Format</span
-                                                    >
-                                                </a>
-                                                <ul class="sub-menu">
-                                                    <li>
-                                                        <a
-                                                            href="blog-gallery-format.php"
-                                                        >
-                                                            <span
-                                                                class="mm-text"
-                                                                >Gallery
-                                                                Format</span
-                                                            >
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a
-                                                            href="blog-audio-format.php"
-                                                        >
-                                                            <span
-                                                                class="mm-text"
-                                                                >Audio
-                                                                Format</span
-                                                            >
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a
-                                                            href="blog-video-format.php"
-                                                        >
-                                                            <span
-                                                                class="mm-text"
-                                                                >Video
-                                                                Format</span
-                                                            >
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="menu-item-has-children">
-                                        <a href="#">
-                                            <span class="mm-text">Pages</span>
-                                        </a>
-                                        <ul class="sub-menu">
-                                            <li>
-                                                <a href="my-account.php">
-                                                    <span class="mm-text"
-                                                        >My Account</span
-                                                    >
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="login-register.php">
-                                                    <span class="mm-text"
-                                                        >Login | Register</span
-                                                    >
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="wishlist.php">
-                                                    <span class="mm-text"
-                                                        >Wishlist</span
-                                                    >
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="cart.php">
-                                                    <span class="mm-text"
-                                                        >Cart</span
-                                                    >
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="checkout.php">
-                                                    <span class="mm-text"
-                                                        >Checkout</span
-                                                    >
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="compare.php">
-                                                    <span class="mm-text"
-                                                        >Compare</span
-                                                    >
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="faq.php">
-                                                    <span class="mm-text"
-                                                        >FAQ</span
-                                                    >
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="404.php">
-                                                    <span class="mm-text"
-                                                        >Error 404</span
-                                                    >
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="coming-soon_page.php">
-                                                    <span class="mm-text"
-                                                        >Comming Soon</span
-                                                    >
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </nav>
-                            <nav class="offcanvas-navigation user-setting_area">
-                                <ul class="mobile-menu">
-                                    <li class="menu-item-has-children active">
-                                        <a href="#">
-                                            <span class="mm-text"
-                                                >User Setting
-                                            </span>
-                                        </a>
-                                        <ul class="sub-menu">
-                                            <li>
-                                                <a href="my-account.php">
-                                                    <span class="mm-text"
-                                                        >My Account</span
-                                                    >
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="login-register.php">
-                                                    <span class="mm-text"
-                                                        >Login | Register</span
-                                                    >
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="menu-item-has-children">
-                                        <a href="#"
-                                            ><span class="mm-text"
-                                                >Currency</span
-                                            ></a
-                                        >
-                                        <ul class="sub-menu">
-                                            <li>
-                                                <a href="javascript:void(0)">
-                                                    <span class="mm-text"
-                                                        >EUR €</span
-                                                    >
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="javascript:void(0)">
-                                                    <span class="mm-text"
-                                                        >USD $</span
-                                                    >
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li class="menu-item-has-children">
-                                        <a href="#"
-                                            ><span class="mm-text"
-                                                >Language</span
-                                            ></a
-                                        >
-                                        <ul class="sub-menu">
-                                            <li>
-                                                <a href="javascript:void(0)">
-                                                    <span class="mm-text"
-                                                        >English</span
-                                                    >
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="javascript:void(0)">
-                                                    <span class="mm-text"
-                                                        >Français</span
-                                                    >
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="javascript:void(0)">
-                                                    <span class="mm-text"
-                                                        >Romanian</span
-                                                    >
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="javascript:void(0)">
-                                                    <span class="mm-text"
-                                                        >Japanese</span
-                                                    >
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul>
+                                <?= $menuService->buildMobileMenuView() ?>
                             </nav>
                         </div>
                     </div>

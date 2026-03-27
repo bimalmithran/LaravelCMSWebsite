@@ -1,7 +1,7 @@
 <?php
 require_once dirname(__DIR__) . "/bootstrap.php";
 
-$productCardService = new \App\Services\ProductCardService($storefront);
+$productCardService = new \App\Services\ProductCardService($storefront, currencySymbol: $currencySymbol);
 $taggedProductsSectionService = new \App\Services\TaggedProductsSectionService(
     $storefront,
     $productCardService,

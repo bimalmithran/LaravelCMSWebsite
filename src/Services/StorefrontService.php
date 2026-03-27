@@ -59,14 +59,16 @@ class StorefrontService
     }
 
     /**
-     * Fetch menus from the API.
-     * @return array The API response array
+     * Fetch menus from the API, optionally filtered by placement.
+     *
+     * @param  string|null  $placement  'header' | 'footer' | null (all)
+     * @return array
      */
-    public function getMenus(): array
+    public function getMenus(?string $placement = null): array
     {
-        $response = $this->api->get("/menus");
+        $query = $placement !== null ? ['placement' => $placement] : [];
 
-        return $response;
+        return $this->api->get("/menus", $query);
     }
 
     /**
@@ -148,6 +150,17 @@ class StorefrontService
         $response = $this->api->get("/products", $query);
 
         return is_array($response) ? $response : [];
+    }
+
+    /**
+     * Fetch a single active product by ID.
+     *
+     * @return array<string, mixed>|null
+     */
+    public function getProduct(int $id): ?array
+    {
+        $data = $this->api->get("/products/{$id}");
+        return ($data !== [] && $data !== null) ? $data : null;
     }
 
     public function resolveAssetUrl(?string $path): string
