@@ -7,36 +7,42 @@ $breadcrumb = "About Us";
 require_once __DIR__ . "/templates/header-inner.php";
 ?>
 
-<!-- Begin Hiraola's About Us Area -->
+<!-- Begin About Us Area -->
 <div class="about-us-area">
     <div class="container">
         <div class="row">
             <div class="col-lg-6 col-md-7 d-flex align-items-center">
                 <div class="overview-content">
-                    <h2>Welcome To <span>Hiraola's</span> Store!</h2>
-                    <p class="short_desc">We Provide Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                        Repudiandae nisi fuga facilis, consequuntur, maiores eveniet voluptatum, omnis possimus
-                        temporibus aspernatur nobis animi in exercitationem vitae nulla! Adipisci ullam illum quisquam.
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem, nulla veniam? Magni aliquid
-                        asperiores magnam. Veniam ex tenetur.</p>
-                    <div class="hiraola-about-us_btn-area">
-                        <a class="about-us_btn" href="shop-left-sidebar.html">Shop Now</a>
+                    <h2>Welcome To <span>TT Devassy</span> Jewellery!</h2>
+                    <p class="short_desc">
+                        Nestled in the heart of Kunnamkulam, TT Devassy Jewellery has been a trusted name in fine
+                        jewellery for generations. We specialise in exquisitely crafted gold, diamond, and silver
+                        jewellery that celebrates life's most cherished moments — from weddings and engagements to
+                        everyday elegance.
+                    </p>
+                    <p class="short_desc" style="margin-top:12px;">
+                        Every piece in our collection is crafted with precision and passion, using the finest
+                        materials sourced responsibly. Our in-house artisans blend traditional craftsmanship with
+                        contemporary design to create jewellery that is timeless yet modern.
+                    </p>
+                    <div class="hiraola-about-us_btn-area" style="margin-top:20px;">
+                        <a class="about-us_btn" href="shop.php">Shop Now</a>
                     </div>
                 </div>
             </div>
             <div class="col-lg-6 col-md-5">
                 <div class="overview-img text-center img-hover_effect">
                     <a href="#">
-                        <img class="img-full" src="assets/images/about-us/1.jpg" alt="Hiraola's About Us Image">
+                        <img class="img-full" src="assets/images/about-us/1.jpg" alt="TT Devassy Jewellery">
                     </a>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<!-- Hiraola's About Us Area End Here -->
+<!-- About Us Area End Here -->
 
-<!-- Begin Hiraola's Project Countdown Area -->
+<!-- Begin Project Countdown Area -->
 <div class="project-count-area">
     <div class="container">
         <div class="row">
@@ -46,8 +52,8 @@ require_once __DIR__ . "/templates/header-inner.php";
                         <span class="ion-ios-briefcase-outline"></span>
                     </div>
                     <div class="count-title">
-                        <h2 class="count">2169</h2>
-                        <span>Project Done</span>
+                        <h2 class="count">50</h2>
+                        <span>Years of Legacy</span>
                     </div>
                 </div>
             </div>
@@ -57,8 +63,8 @@ require_once __DIR__ . "/templates/header-inner.php";
                         <span class="ion-ios-wineglass-outline"></span>
                     </div>
                     <div class="count-title">
-                        <h2 class="count">869</h2>
-                        <span>Awards Winned</span>
+                        <h2 class="count">1200</h2>
+                        <span>Unique Designs</span>
                     </div>
                 </div>
             </div>
@@ -68,8 +74,8 @@ require_once __DIR__ . "/templates/header-inner.php";
                         <span class="ion-ios-lightbulb-outline"></span>
                     </div>
                     <div class="count-title">
-                        <h2 class="count">689</h2>
-                        <span>Hours Worked</span>
+                        <h2 class="count">25</h2>
+                        <span>Master Artisans</span>
                     </div>
                 </div>
             </div>
@@ -79,202 +85,101 @@ require_once __DIR__ . "/templates/header-inner.php";
                         <span class="ion-happy-outline"></span>
                     </div>
                     <div class="count-title">
-                        <h2 class="count">2169</h2>
-                        <span>Happy Customer</span>
+                        <h2 class="count">10000</h2>
+                        <span>Happy Customers</span>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<!-- Hiraola's Project Countdown Area End Here -->
+<!-- Project Countdown Area End Here -->
 
-<!-- Begin Hiraola's Team Area -->
-<div class="team-area">
+<!-- Begin Our Values Area -->
+<div class="hiraola-product_area" style="padding: 50px 0;">
     <div class="container">
         <div class="row">
             <div class="col-12">
                 <div class="section_title-2">
-                    <h4>Our Team</h4>
+                    <h4>Why Choose Us</h4>
                 </div>
             </div>
-        </div> <!-- section title end -->
-        <div class="row">
-            <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="team-member">
-                    <div class="team-thumb img-hover_effect">
-                        <a href="#">
-                            <img src="assets/images/about-us/team/1.jpg" alt="Our Team Member">
-                        </a>
+        </div>
+        <div class="row" style="margin-top: 30px;">
+            <div class="col-lg-4 col-md-6" style="margin-bottom: 30px;">
+                <div style="text-align:center; padding: 30px 20px; border: 1px solid #eee; border-radius: 4px;">
+                    <div style="font-size: 40px; color: #333; margin-bottom: 15px;">
+                        <i class="ion-ios-star-outline"></i>
                     </div>
-                    <div class="team-content text-center">
-                        <h3>Timothy Beck</h3>
-                        <p>IT Expert</p>
-                        <a href="#">info@example.com</a>
-                        <div class="hiraola-social_link">
-                            <ul>
-                                <li class="facebook">
-                                    <a href="https://www.facebook.com" data-bs-toggle="tooltip" target="_blank" title="Facebook">
-                                        <i class="fab fa-facebook"></i>
-                                    </a>
-                                </li>
-                                <li class="twitter">
-                                    <a href="https://twitter.com" data-bs-toggle="tooltip" target="_blank" title="Twitter">
-                                        <i class="fab fa-twitter-square"></i>
-                                    </a>
-                                </li>
-                                <li class="youtube">
-                                    <a href="https://www.youtube.com" data-bs-toggle="tooltip" target="_blank" title="Youtube">
-                                        <i class="fab fa-youtube"></i>
-                                    </a>
-                                </li>
-                                <li class="google-plus">
-                                    <a href="https://www.plus.google.com/discover" data-bs-toggle="tooltip" target="_blank" title="Google Plus">
-                                        <i class="fab fa-google-plus"></i>
-                                    </a>
-                                </li>
-                                <li class="instagram">
-                                    <a href="https://rss.com" data-bs-toggle="tooltip" target="_blank" title="Instagram">
-                                        <i class="fab fa-instagram"></i>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+                    <h5 style="margin-bottom: 10px; font-size: 16px; font-weight: 600;">Hallmarked Gold</h5>
+                    <p style="color: #666; font-size: 14px; line-height: 1.7;">
+                        All our gold jewellery carries BIS hallmarking, guaranteeing purity and authenticity you can trust.
+                    </p>
                 </div>
-            </div> <!-- end single team member -->
-            <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="team-member">
-                    <div class="team-thumb img-hover_effect">
-                        <a href="#">
-                            <img src="assets/images/about-us/team/2.jpg" alt="Our Team Member">
-                        </a>
+            </div>
+            <div class="col-lg-4 col-md-6" style="margin-bottom: 30px;">
+                <div style="text-align:center; padding: 30px 20px; border: 1px solid #eee; border-radius: 4px;">
+                    <div style="font-size: 40px; color: #333; margin-bottom: 15px;">
+                        <i class="ion-ios-loop-strong"></i>
                     </div>
-                    <div class="team-content text-center">
-                        <h3>Sarah Sanchez</h3>
-                        <p>Web Designer</p>
-                        <a href="#">info@example.com</a>
-                        <div class="hiraola-social_link">
-                            <ul>
-                                <li class="facebook">
-                                    <a href="https://www.facebook.com" data-bs-toggle="tooltip" target="_blank" title="Facebook">
-                                        <i class="fab fa-facebook"></i>
-                                    </a>
-                                </li>
-                                <li class="twitter">
-                                    <a href="https://twitter.com" data-bs-toggle="tooltip" target="_blank" title="Twitter">
-                                        <i class="fab fa-twitter-square"></i>
-                                    </a>
-                                </li>
-                                <li class="youtube">
-                                    <a href="https://www.youtube.com" data-bs-toggle="tooltip" target="_blank" title="Youtube">
-                                        <i class="fab fa-youtube"></i>
-                                    </a>
-                                </li>
-                                <li class="google-plus">
-                                    <a href="https://www.plus.google.com/discover" data-bs-toggle="tooltip" target="_blank" title="Google Plus">
-                                        <i class="fab fa-google-plus"></i>
-                                    </a>
-                                </li>
-                                <li class="instagram">
-                                    <a href="https://rss.com" data-bs-toggle="tooltip" target="_blank" title="Instagram">
-                                        <i class="fab fa-instagram"></i>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+                    <h5 style="margin-bottom: 10px; font-size: 16px; font-weight: 600;">Exchange & Buy-Back</h5>
+                    <p style="color: #666; font-size: 14px; line-height: 1.7;">
+                        We offer fair exchange and buy-back on all our jewellery so your investment retains its value.
+                    </p>
                 </div>
-            </div> <!-- end single team member -->
-            <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="team-member">
-                    <div class="team-thumb img-hover_effect">
-                        <a href="#">
-                            <img src="assets/images/about-us/team/3.jpg" alt="Our Team Member">
-                        </a>
+            </div>
+            <div class="col-lg-4 col-md-6" style="margin-bottom: 30px;">
+                <div style="text-align:center; padding: 30px 20px; border: 1px solid #eee; border-radius: 4px;">
+                    <div style="font-size: 40px; color: #333; margin-bottom: 15px;">
+                        <i class="ion-ios-people-outline"></i>
                     </div>
-                    <div class="team-content text-center">
-                        <h3>Edwin Adams</h3>
-                        <p>Content Writer</p>
-                        <a href="javascript:void(0)">info@example.com</a>
-                        <div class="hiraola-social_link">
-                            <ul>
-                                <li class="facebook">
-                                    <a href="https://www.facebook.com" data-bs-toggle="tooltip" target="_blank" title="Facebook">
-                                        <i class="fab fa-facebook"></i>
-                                    </a>
-                                </li>
-                                <li class="twitter">
-                                    <a href="https://twitter.com" data-bs-toggle="tooltip" target="_blank" title="Twitter">
-                                        <i class="fab fa-twitter-square"></i>
-                                    </a>
-                                </li>
-                                <li class="youtube">
-                                    <a href="https://www.youtube.com" data-bs-toggle="tooltip" target="_blank" title="Youtube">
-                                        <i class="fab fa-youtube"></i>
-                                    </a>
-                                </li>
-                                <li class="google-plus">
-                                    <a href="https://www.plus.google.com/discover" data-bs-toggle="tooltip" target="_blank" title="Google Plus">
-                                        <i class="fab fa-google-plus"></i>
-                                    </a>
-                                </li>
-                                <li class="instagram">
-                                    <a href="https://rss.com" data-bs-toggle="tooltip" target="_blank" title="Instagram">
-                                        <i class="fab fa-instagram"></i>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+                    <h5 style="margin-bottom: 10px; font-size: 16px; font-weight: 600;">Personalised Service</h5>
+                    <p style="color: #666; font-size: 14px; line-height: 1.7;">
+                        Our knowledgeable staff are dedicated to helping you find the perfect piece for every occasion.
+                    </p>
                 </div>
-            </div> <!-- end single team member -->
-            <div class="col-lg-3 col-md-6 col-sm-6">
-                <div class="team-member">
-                    <div class="team-thumb img-hover_effect">
-                        <a href="#">
-                            <img src="assets/images/about-us/team/4.jpg" alt="Our Team Member">
-                        </a>
-                    </div>
-                    <div class="team-content text-center">
-                        <h3>Anny Adams</h3>
-                        <p>Marketing officer</p>
-                        <a href="#">info@example.com</a>
-                        <div class="hiraola-social_link">
-                            <ul>
-                                <li class="facebook">
-                                    <a href="https://www.facebook.com" data-bs-toggle="tooltip" target="_blank" title="Facebook">
-                                        <i class="fab fa-facebook"></i>
-                                    </a>
-                                </li>
-                                <li class="twitter">
-                                    <a href="https://twitter.com" data-bs-toggle="tooltip" target="_blank" title="Twitter">
-                                        <i class="fab fa-twitter-square"></i>
-                                    </a>
-                                </li>
-                                <li class="youtube">
-                                    <a href="https://www.youtube.com" data-bs-toggle="tooltip" target="_blank" title="Youtube">
-                                        <i class="fab fa-youtube"></i>
-                                    </a>
-                                </li>
-                                <li class="google-plus">
-                                    <a href="https://www.plus.google.com/discover" data-bs-toggle="tooltip" target="_blank" title="Google Plus">
-                                        <i class="fab fa-google-plus"></i>
-                                    </a>
-                                </li>
-                                <li class="instagram">
-                                    <a href="https://rss.com" data-bs-toggle="tooltip" target="_blank" title="Instagram">
-                                        <i class="fab fa-instagram"></i>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div> <!-- end single team member -->
+            </div>
         </div>
     </div>
 </div>
-<!-- Hiraola's Team Area End Here -->
+<!-- Our Values Area End Here -->
+
+<!-- Begin Story Area -->
+<div style="background: #f8f8f8; padding: 60px 0;">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6" style="margin-bottom: 30px;">
+                <div class="overview-img img-hover_effect">
+                    <a href="#">
+                        <img class="img-full" src="assets/images/about-us/1.jpg" alt="Our Showroom">
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-6" style="padding-left: 40px;">
+                <div class="overview-content">
+                    <h2>Our <span>Story</span></h2>
+                    <p style="color: #555; font-size: 14px; line-height: 1.8; margin-bottom: 15px;">
+                        TT Devassy Jewellery was founded with a simple belief — that every person deserves jewellery
+                        that tells their story. From humble beginnings as a small goldsmith's workshop in Kunnamkulam,
+                        we have grown into one of the region's most respected jewellery destinations.
+                    </p>
+                    <p style="color: #555; font-size: 14px; line-height: 1.8; margin-bottom: 15px;">
+                        Over decades, we have built a reputation for quality, transparency, and artistry. Whether
+                        you're looking for a traditional bridal set, an elegant diamond necklace, or a custom-designed
+                        piece, our team is here to make your vision a reality.
+                    </p>
+                    <p style="color: #555; font-size: 14px; line-height: 1.8;">
+                        Visit our showroom in Kunnamkulam or browse our online collection. We're always happy
+                        to assist you in finding the jewellery that perfectly suits you.
+                    </p>
+                    <div class="hiraola-about-us_btn-area" style="margin-top: 25px;">
+                        <a class="about-us_btn" href="contact.php">Contact Us</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Story Area End Here -->
 
 <?php require_once __DIR__ . "/templates/footer.php"; ?>
