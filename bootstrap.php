@@ -1,4 +1,9 @@
 <?php
+// 0. Start session early (needed for customer auth state across pages)
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 // 1. PSR-4 Autoloader
 spl_autoload_register(function ($class) {
     $prefix = "App\\";
@@ -23,4 +28,9 @@ $apiClient = new \App\Http\LaravelApiClient(
 $storefront       = new \App\Services\StorefrontService($apiClient);
 $headerService    = new \App\Services\HeaderService($apiClient);
 $footerService    = new \App\Services\FooterService($apiClient);
+$authService      = new \App\Services\AuthService($apiClient);
 $currencySymbol   = (string) ($config["currency_symbol"] ?? "₹");
+
+// Convenience helpers available to every page
+$loggedIn        = !empty($_SESSION['customer_token']);
+$customerData    = $_SESSION['customer_data'] ?? null;

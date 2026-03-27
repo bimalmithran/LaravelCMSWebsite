@@ -28,6 +28,16 @@ class LaravelApiClient implements ApiClientInterface
         return $this->executeRequest("POST", $url, $data);
     }
 
+    /**
+     * POST to an authenticated endpoint using a customer Bearer token.
+     * Returns the full decoded response array (not just ->data).
+     */
+    public function postWithAuth(string $endpoint, array $data, string $token): ?array
+    {
+        $url = $this->baseUrl . "/" . ltrim($endpoint, "/");
+        return $this->executeRequest("POST", $url, $data, $token);
+    }
+
     public function resolveUrl(?string $path): string
     {
         if ($path === null) {
@@ -55,6 +65,7 @@ class LaravelApiClient implements ApiClientInterface
         string $method,
         string $url,
         array $data = [],
+        ?string $bearerToken = null,
     ): ?array {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
@@ -66,6 +77,10 @@ class LaravelApiClient implements ApiClientInterface
             "Content-Type: application/json",
             "X-Storefront-Key: " . $this->apiKey,
         ];
+
+        if ($bearerToken !== null) {
+            $headers[] = "Authorization: Bearer " . $bearerToken;
+        }
 
         if ($method === "POST" && !empty($data)) {
             curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));

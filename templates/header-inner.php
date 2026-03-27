@@ -118,12 +118,24 @@ $defaultTitle    = $siteName !== '' ? $siteName : 'TT Devassy Jewellery';
                                         </ul>
                                     </li>
                                     <li>
-                                        <a href="my-account.php">My Account <i class="fa fa-chevron-down"></i></a>
+                                        <?php if (!empty($_SESSION['customer_token']) && !empty($_SESSION['customer_data'])): ?>
+                                        <?php $__customer = $_SESSION['customer_data']; ?>
+                                        <a href="my-account.php">
+                                            <?= htmlspecialchars((string)($__customer['first_name'] ?? 'My Account'), ENT_QUOTES) ?>
+                                            <i class="fa fa-chevron-down"></i>
+                                        </a>
                                         <ul class="ht-dropdown ht-my_account">
-                                            <li><a href="javascript:void(0)">Register</a></li>
-                                            <li class="active"><a href="javascript:void(0)">Login</a></li>
+                                            <li><a href="my-account.php">My Account</a></li>
+                                            <li><a href="my-account.php?tab=orders">My Orders</a></li>
+                                            <li class="active"><a href="logout.php">Sign Out</a></li>
                                         </ul>
-                                    </li>
+                                        <?php else: ?>
+                                        <a href="login.php">My Account <i class="fa fa-chevron-down"></i></a>
+                                        <ul class="ht-dropdown ht-my_account">
+                                            <li><a href="register.php">Register</a></li>
+                                            <li class="active"><a href="login.php">Login</a></li>
+                                        </ul>
+                                        <?php endif; ?>
                                 </ul>
                             </div>
                         </div>
