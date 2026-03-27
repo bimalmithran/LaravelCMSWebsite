@@ -75,7 +75,7 @@ class ProductCardService
         return [
             "id" => (int) ($product["id"] ?? 0),
             "name" => $name,
-            "link" => "single-product.html",
+            "link" => "product.php?id=" . ((int) ($product["id"] ?? 0)),
             "primary_image" => $this->resolveImage($product),
             "secondary_image" => $this->resolveImage($product, 1),
             "badge_class" => $isOnSale ? "sticker-2" : "sticker",
@@ -83,6 +83,7 @@ class ProductCardService
             "display_price" => $this->formatCurrency($displayPrice),
             "old_price" => $isOnSale ? $this->formatCurrency($price) : null,
             "rating" => $rating,
+            "short_description" => (string) ($product["short_description"] ?? ""),
         ];
     }
 

@@ -27,6 +27,7 @@ class HeaderService
             'favicon_url'      => $this->api->resolveUrl($settings['site_favicon'] ?? null),
             'site_name'        => (string) ($settings['site_name'] ?? ''),
             'meta_description' => (string) ($settings['default_meta_description'] ?? ''),
+            'contact_phone'    => (string) ($settings['contact_phone'] ?? ''),
         ];
     }
 }

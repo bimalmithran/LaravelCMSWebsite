@@ -264,6 +264,8 @@ $copyrightYear   = date('Y');
 <script src="assets/js/quick-view.js"></script>
 <!-- Newsletter JS -->
 <script src="assets/js/newsletter.js"></script>
+<!-- Search Autocomplete JS -->
+<script src="assets/js/search-autocomplete.js"></script>
 <!-- Main JS -->
 <script src="assets/js/main.js"></script>
 <script src="assets/js/tagged-products-section.js"></script>

@@ -140,10 +140,13 @@ $defaultTitle    = $siteName !== '' ? "Home || {$siteName}" : 'Home';
                             ></a>
                             <!-- Begin Offcanvas Search Area -->
                             <div class="offcanvas-search">
-                                <form action="#" class="hm-searchbox">
+                                <form action="shop.php" method="get" class="hm-searchbox">
                                     <input
                                         type="text"
+                                        name="q"
                                         placeholder="Search for item..."
+                                        data-search-input
+                                        autocomplete="off"
                                     />
                                     <button class="search_btn" type="submit">
                                         <i class="ion-ios-search-strong"></i>
@@ -194,10 +197,13 @@ $defaultTitle    = $siteName !== '' ? "Home || {$siteName}" : 'Home';
                                 ><i class="ion-android-close"></i
                             ></a>
                             <div class="offcanvas-inner_search">
-                                <form action="#" class="hm-searchbox">
+                                <form action="shop.php" method="get" class="hm-searchbox">
                                     <input
                                         type="text"
+                                        name="q"
                                         placeholder="Search for item..."
+                                        data-search-input
+                                        autocomplete="off"
                                     />
                                     <button class="search_btn" type="submit">
                                         <i class="ion-ios-search-strong"></i>

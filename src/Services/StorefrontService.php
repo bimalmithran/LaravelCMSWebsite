@@ -153,6 +153,34 @@ class StorefrontService
     }
 
     /**
+     * Fetch products with arbitrary filter/sort/pagination params.
+     *
+     * Returns the full paginated response: {data: [...], meta: {...}, links: {...}}
+     *
+     * @param  array<string, mixed>  $params  e.g. page, per_page, search, category_id, sort_by, sort_order, min_price, max_price
+     * @return array<string, mixed>
+     */
+    public function getProducts(array $params = []): array
+    {
+        $response = $this->api->get('/products', $params);
+        return is_array($response) ? $response : [];
+    }
+
+    /**
+     * Quick product search (max 20 results, no pagination).
+     *
+     * @return array<int, array<string, mixed>>
+     */
+    public function searchProducts(string $q, int $limit = 10): array
+    {
+        $response = $this->api->get('/products/search', [
+            'q'     => $q,
+            'limit' => max(1, min(20, $limit)),
+        ]);
+        return is_array($response) ? $response : [];
+    }
+
+    /**
      * Fetch a single active product by ID.
      *
      * @return array<string, mixed>|null
@@ -161,6 +189,17 @@ class StorefrontService
     {
         $data = $this->api->get("/products/{$id}");
         return ($data !== [] && $data !== null) ? $data : null;
+    }
+
+    /**
+     * Fetch related products for a given product (same category).
+     *
+     * @return array<int, array<string, mixed>>
+     */
+    public function getRelatedProducts(int $productId, int $limit = 6): array
+    {
+        $response = $this->api->get("/products/{$productId}/related", ['limit' => $limit]);
+        return is_array($response) ? $response : [];
     }
 
     public function resolveAssetUrl(?string $path): string
