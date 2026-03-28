@@ -274,7 +274,11 @@ $copyrightYear   = date('Y');
 window.APP_CONFIG = {
     loggedIn:  <?= !empty($_SESSION['customer_token']) ? 'true' : 'false' ?>,
     loginUrl:  'login.php',
-    apiOrigin: <?= json_encode(rtrim(preg_replace('/\/api\/v1$/', '', ($config['api_base_url'] ?? '')), '/')) ?>,
+    apiOrigin: <?= json_encode(
+        !empty($config['public_base_url'])
+            ? rtrim($config['public_base_url'], '/')
+            : rtrim(preg_replace('/\/api\/v1$/', '', ($config['api_base_url'] ?? '')), '/')
+    ) ?>,
     currency:  <?= json_encode($currencySymbol ?? '₹') ?>
 };
 </script>

@@ -24,6 +24,7 @@ $config = require __DIR__ . "/config.php";
 $apiClient = new \App\Http\LaravelApiClient(
     $config["api_base_url"],
     $config["api_key"],
+    $config["public_base_url"] ?? "",
 );
 $storefront       = new \App\Services\StorefrontService($apiClient);
 $headerService    = new \App\Services\HeaderService($apiClient);

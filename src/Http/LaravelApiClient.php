@@ -5,11 +5,13 @@ class LaravelApiClient implements ApiClientInterface
 {
     private string $baseUrl;
     private string $apiKey;
+    private string $publicBaseUrl;
 
-    public function __construct(string $baseUrl, string $apiKey)
+    public function __construct(string $baseUrl, string $apiKey, string $publicBaseUrl = "")
     {
         $this->baseUrl = rtrim($baseUrl, "/");
         $this->apiKey = $apiKey;
+        $this->publicBaseUrl = rtrim($publicBaseUrl, "/");
     }
 
     public function get(string $endpoint, array $queryParams = []): ?array
@@ -154,6 +156,10 @@ class LaravelApiClient implements ApiClientInterface
 
     private function getOriginUrl(): string
     {
+        if ($this->publicBaseUrl !== "") {
+            return $this->publicBaseUrl;
+        }
+
         $parts = parse_url($this->baseUrl);
 
         if ($parts === false || !isset($parts["scheme"], $parts["host"])) {
