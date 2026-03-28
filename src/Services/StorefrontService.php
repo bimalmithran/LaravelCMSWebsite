@@ -202,6 +202,17 @@ class StorefrontService
         return is_array($response) ? $response : [];
     }
 
+    /**
+     * Fetch all public global settings as a key→value map.
+     *
+     * @return array<string, mixed>
+     */
+    public function getSettings(): array
+    {
+        $data = $this->api->get('/settings/global');
+        return is_array($data) ? $data : [];
+    }
+
     public function resolveAssetUrl(?string $path): string
     {
         return $this->api->resolveUrl($path);

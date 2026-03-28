@@ -72,12 +72,15 @@
         $modal.find('#qv-name').text(product.name || '');
 
         // Rating stars
-        var $ratingList = $modal.find('#qv-rating').empty();
+        var $ratingList = $modal.find('#qv-rating').empty().css({
+            'list-style': 'none', 'padding': '0', 'margin': '0',
+            'display': 'flex', 'gap': '2px'
+        });
         for (var i = 1; i <= 5; i++) {
             $ratingList.append(
                 $('<li>')
                     .toggleClass('silver-color', i > product.rating)
-                    .append($('<i>').addClass('fa fa-star-of-david'))
+                    .append($('<i>').addClass('fa fa-star'))
             );
         }
 

@@ -94,15 +94,7 @@ require_once __DIR__ . '/templates/header-inner.php';
                         <?php endif; ?>
 
                         <!-- Rating -->
-                        <div class="rating-box">
-                            <ul>
-                                <?php foreach (range(1, 5) as $star): ?>
-                                <li<?= $star > $product['rating'] ? ' class="silver-color"' : '' ?>>
-                                    <i class="fa fa-star-of-david"></i>
-                                </li>
-                                <?php endforeach; ?>
-                            </ul>
-                        </div>
+                        <?php $starRating = $product['rating']; require __DIR__ . '/templates/components/star-display.php'; ?>
 
                         <!-- Price & Meta -->
                         <div class="sp-essential_stuff">
@@ -285,77 +277,28 @@ require_once __DIR__ . '/templates/header-inner.php';
 
                         <!-- Reviews Tab -->
                         <div id="reviews" class="tab-pane" role="tabpanel">
-                            <div class="tab-pane" id="tab-review">
-
-                                <?php if (!empty($product['reviews'])): ?>
-                                <div id="review">
-                                    <table class="table table-striped table-bordered">
-                                        <tbody>
-                                            <?php foreach ($product['reviews'] as $review): ?>
-                                            <tr>
-                                                <td style="width:50%"><strong><?= htmlspecialchars($review['author']) ?></strong></td>
-                                                <td class="text-right"><?= htmlspecialchars(substr($review['date'], 0, 10)) ?></td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="2">
-                                                    <p><?= htmlspecialchars($review['comment']) ?></p>
-                                                    <div class="rating-box">
-                                                        <ul>
-                                                            <?php foreach (range(1, 5) as $star): ?>
-                                                            <li<?= $star > $review['rating'] ? ' class="silver-color"' : '' ?>>
-                                                                <i class="fa fa-star-of-david"></i>
-                                                            </li>
-                                                            <?php endforeach; ?>
-                                                        </ul>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <?php endforeach; ?>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <?php else: ?>
-                                <p style="padding: 15px 0;">No reviews yet. Be the first to review this product!</p>
-                                <?php endif; ?>
-
-                                <h2>Write a Review</h2>
-                                <?php if ($loggedIn): ?>
-                                <div id="review-alert" style="display:none;margin-bottom:12px;padding:10px 14px;border-radius:4px;font-size:14px;"></div>
-                                <form class="form-horizontal" id="form-review">
-                                    <div class="form-group required second-child">
-                                        <div class="col-sm-12 p-0">
-                                            <label class="control-label">Your Review</label>
-                                            <textarea class="review-textarea" id="review-comment" rows="4"
-                                                placeholder="Share your experience with this product..."></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="form-group last-child required">
-                                        <div class="col-sm-12 p-0">
-                                            <div class="your-opinion">
-                                                <label>Your Rating <span class="required">*</span></label>
-                                                <span>
-                                                    <select class="star-rating" id="review-rating">
-                                                        <option value="5">5 – Excellent</option>
-                                                        <option value="4">4 – Good</option>
-                                                        <option value="3">3 – Average</option>
-                                                        <option value="2">2 – Poor</option>
-                                                        <option value="1">1 – Terrible</option>
-                                                    </select>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <div class="hiraola-btn-ps_right" style="margin-top:12px;">
-                                            <a href="javascript:void(0)" id="btn-submit-review"
-                                               class="hiraola-btn hiraola-btn_dark">Submit Review</a>
-                                        </div>
-                                    </div>
-                                </form>
-                                <?php else: ?>
-                                <p style="padding:10px 0;color:#555;">
-                                    <a href="login.php?next=product.php%3Fid=<?= $id ?>">Log in</a> to write a review.
-                                </p>
-                                <?php endif; ?>
+                            <?php if (!empty($product['reviews'])): ?>
+                            <div id="review">
+                                <table class="table table-striped table-bordered">
+                                    <tbody>
+                                        <?php foreach ($product['reviews'] as $review): ?>
+                                        <tr>
+                                            <td style="width:50%"><strong><?= htmlspecialchars($review['author']) ?></strong></td>
+                                            <td class="text-right"><?= htmlspecialchars(substr($review['date'], 0, 10)) ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2">
+                                                <p><?= htmlspecialchars($review['comment']) ?></p>
+                                                <?php $starRating = $review['rating']; require __DIR__ . '/templates/components/star-display.php'; ?>
+                                            </td>
+                                        </tr>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
                             </div>
+                            <?php else: ?>
+                            <p style="padding:15px 0;color:#555;">No approved reviews yet. Be the first!</p>
+                            <?php endif; ?>
                         </div>
 
                     </div>
@@ -365,6 +308,59 @@ require_once __DIR__ . '/templates/header-inner.php';
     </div>
 </div>
 <!-- Product Tabs End -->
+
+<!-- Write a Review Section (always visible) -->
+<div class="hiraola-product-tab_area-2" style="border-top:1px solid #eee;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="sp-product-tab_nav">
+                    <div style="padding: 30px 0 10px;">
+                        <h4 style="font-size:18px; font-weight:600; margin-bottom:20px;">Write a Review</h4>
+
+                        <?php if ($loggedIn): ?>
+                        <div id="review-alert" style="display:none;margin-bottom:14px;padding:12px 16px;border-radius:4px;font-size:14px;"></div>
+                        <form class="form-horizontal" id="form-review" style="max-width:600px;">
+                            <div class="form-group required second-child">
+                                <div class="col-sm-12 p-0">
+                                    <label class="control-label">Your Rating <span class="required">*</span></label>
+                                    <div style="margin-top:6px;">
+                                        <select class="star-rating" id="review-rating" style="width:200px; padding:6px 10px; border:1px solid #ddd; border-radius:3px;">
+                                            <option value="1">1 – Terrible</option>
+                                            <option value="2">2 – Poor</option>
+                                            <option value="3">3 – Average</option>
+                                            <option value="4">4 – Good</option>
+                                            <option value="5">5 – Excellent</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group required second-child" style="margin-top:16px;">
+                                <div class="col-sm-12 p-0">
+                                    <label class="control-label">Your Review</label>
+                                    <textarea class="review-textarea" id="review-comment" rows="4"
+                                        placeholder="Share your experience with this product..."
+                                        style="margin-top:6px;width:100%;padding:10px;border:1px solid #ddd;border-radius:3px;resize:vertical;"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group last-child" style="margin-top:14px;">
+                                <a href="javascript:void(0)" id="btn-submit-review"
+                                   class="hiraola-btn hiraola-btn_dark">Submit Review</a>
+                            </div>
+                        </form>
+                        <?php else: ?>
+                        <p style="color:#555;">
+                            <a href="login.php?next=<?= urlencode('product.php?id=' . $id) ?>">Log in</a>
+                            to write a review.
+                        </p>
+                        <?php endif; ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Write a Review Section End -->
 
 <!-- Related Products -->
 <?php if (!empty($product['related_products'])): ?>

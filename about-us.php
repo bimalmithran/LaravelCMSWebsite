@@ -1,8 +1,21 @@
 <?php
 require_once __DIR__ . "/bootstrap.php";
 
-$pageTitle = "About Us || TT Devassy Jewellery";
+$pageTitle  = "About Us || TT Devassy Jewellery";
 $breadcrumb = "About Us";
+
+// Load settings from API (same endpoint used by footer)
+$settings = $storefront->getSettings();
+
+$aboutIntro      = (string) ($settings['about_intro']          ?? 'Nestled in the heart of Kunnamkulam, TT Devassy Jewellery has been a trusted name in fine jewellery for generations.');
+$aboutStory      = (string) ($settings['about_story']          ?? 'TT Devassy Jewellery was founded with a simple belief — that every person deserves jewellery that tells their story.');
+$yearsLegacy     = (string) ($settings['about_years_legacy']   ?? '50');
+$uniqueDesigns   = (string) ($settings['about_unique_designs'] ?? '1200');
+$masterArtisans  = (string) ($settings['about_master_artisans'] ?? '25');
+$happyCustomers  = (string) ($settings['about_happy_customers'] ?? '10000');
+$aboutImage      = $storefront->resolveAssetUrl($settings['about_image'] ?? null) ?: 'assets/images/about-us/1.jpg';
+
+$siteName = (string) ($settings['site_name'] ?? 'TT Devassy Jewellery');
 
 require_once __DIR__ . "/templates/header-inner.php";
 ?>
@@ -13,18 +26,8 @@ require_once __DIR__ . "/templates/header-inner.php";
         <div class="row">
             <div class="col-lg-6 col-md-7 d-flex align-items-center">
                 <div class="overview-content">
-                    <h2>Welcome To <span>TT Devassy</span> Jewellery!</h2>
-                    <p class="short_desc">
-                        Nestled in the heart of Kunnamkulam, TT Devassy Jewellery has been a trusted name in fine
-                        jewellery for generations. We specialise in exquisitely crafted gold, diamond, and silver
-                        jewellery that celebrates life's most cherished moments — from weddings and engagements to
-                        everyday elegance.
-                    </p>
-                    <p class="short_desc" style="margin-top:12px;">
-                        Every piece in our collection is crafted with precision and passion, using the finest
-                        materials sourced responsibly. Our in-house artisans blend traditional craftsmanship with
-                        contemporary design to create jewellery that is timeless yet modern.
-                    </p>
+                    <h2>Welcome To <span><?= htmlspecialchars($siteName) ?></span></h2>
+                    <p class="short_desc"><?= nl2br(htmlspecialchars($aboutIntro)) ?></p>
                     <div class="hiraola-about-us_btn-area" style="margin-top:20px;">
                         <a class="about-us_btn" href="shop.php">Shop Now</a>
                     </div>
@@ -33,7 +36,7 @@ require_once __DIR__ . "/templates/header-inner.php";
             <div class="col-lg-6 col-md-5">
                 <div class="overview-img text-center img-hover_effect">
                     <a href="#">
-                        <img class="img-full" src="assets/images/about-us/1.jpg" alt="TT Devassy Jewellery">
+                        <img class="img-full" src="<?= htmlspecialchars($aboutImage) ?>" alt="<?= htmlspecialchars($siteName) ?>">
                     </a>
                 </div>
             </div>
@@ -52,7 +55,7 @@ require_once __DIR__ . "/templates/header-inner.php";
                         <span class="ion-ios-briefcase-outline"></span>
                     </div>
                     <div class="count-title">
-                        <h2 class="count">50</h2>
+                        <h2 class="count"><?= htmlspecialchars($yearsLegacy) ?></h2>
                         <span>Years of Legacy</span>
                     </div>
                 </div>
@@ -63,7 +66,7 @@ require_once __DIR__ . "/templates/header-inner.php";
                         <span class="ion-ios-wineglass-outline"></span>
                     </div>
                     <div class="count-title">
-                        <h2 class="count">1200</h2>
+                        <h2 class="count"><?= htmlspecialchars($uniqueDesigns) ?></h2>
                         <span>Unique Designs</span>
                     </div>
                 </div>
@@ -74,7 +77,7 @@ require_once __DIR__ . "/templates/header-inner.php";
                         <span class="ion-ios-lightbulb-outline"></span>
                     </div>
                     <div class="count-title">
-                        <h2 class="count">25</h2>
+                        <h2 class="count"><?= htmlspecialchars($masterArtisans) ?></h2>
                         <span>Master Artisans</span>
                     </div>
                 </div>
@@ -85,7 +88,7 @@ require_once __DIR__ . "/templates/header-inner.php";
                         <span class="ion-happy-outline"></span>
                     </div>
                     <div class="count-title">
-                        <h2 class="count">10000</h2>
+                        <h2 class="count"><?= htmlspecialchars($happyCustomers) ?></h2>
                         <span>Happy Customers</span>
                     </div>
                 </div>
@@ -95,7 +98,7 @@ require_once __DIR__ . "/templates/header-inner.php";
 </div>
 <!-- Project Countdown Area End Here -->
 
-<!-- Begin Our Values Area -->
+<!-- Begin Why Choose Us Area -->
 <div class="hiraola-product_area" style="padding: 50px 0;">
     <div class="container">
         <div class="row">
@@ -142,36 +145,25 @@ require_once __DIR__ . "/templates/header-inner.php";
         </div>
     </div>
 </div>
-<!-- Our Values Area End Here -->
+<!-- Why Choose Us Area End Here -->
 
-<!-- Begin Story Area -->
+<!-- Begin Our Story Area -->
 <div style="background: #f8f8f8; padding: 60px 0;">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-6" style="margin-bottom: 30px;">
                 <div class="overview-img img-hover_effect">
                     <a href="#">
-                        <img class="img-full" src="assets/images/about-us/1.jpg" alt="Our Showroom">
+                        <img class="img-full" src="<?= htmlspecialchars($aboutImage) ?>" alt="Our Showroom">
                     </a>
                 </div>
             </div>
             <div class="col-lg-6" style="padding-left: 40px;">
                 <div class="overview-content">
                     <h2>Our <span>Story</span></h2>
-                    <p style="color: #555; font-size: 14px; line-height: 1.8; margin-bottom: 15px;">
-                        TT Devassy Jewellery was founded with a simple belief — that every person deserves jewellery
-                        that tells their story. From humble beginnings as a small goldsmith's workshop in Kunnamkulam,
-                        we have grown into one of the region's most respected jewellery destinations.
-                    </p>
-                    <p style="color: #555; font-size: 14px; line-height: 1.8; margin-bottom: 15px;">
-                        Over decades, we have built a reputation for quality, transparency, and artistry. Whether
-                        you're looking for a traditional bridal set, an elegant diamond necklace, or a custom-designed
-                        piece, our team is here to make your vision a reality.
-                    </p>
-                    <p style="color: #555; font-size: 14px; line-height: 1.8;">
-                        Visit our showroom in Kunnamkulam or browse our online collection. We're always happy
-                        to assist you in finding the jewellery that perfectly suits you.
-                    </p>
+                    <div style="color: #555; font-size: 14px; line-height: 1.8; margin-top: 15px;">
+                        <?= nl2br(htmlspecialchars($aboutStory)) ?>
+                    </div>
                     <div class="hiraola-about-us_btn-area" style="margin-top: 25px;">
                         <a class="about-us_btn" href="contact.php">Contact Us</a>
                     </div>
@@ -180,6 +172,6 @@ require_once __DIR__ . "/templates/header-inner.php";
         </div>
     </div>
 </div>
-<!-- Story Area End Here -->
+<!-- Our Story Area End Here -->
 
 <?php require_once __DIR__ . "/templates/footer.php"; ?>

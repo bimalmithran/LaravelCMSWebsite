@@ -30,15 +30,7 @@
                         <?= htmlspecialchars($productCard['name']) ?>
                     </a>
                 </h6>
-                <div class="rating-box">
-                    <ul>
-                        <?php foreach (range(1, 5) as $star): ?>
-                        <li<?= $star > $productCard['rating'] ? ' class="silver-color"' : '' ?>>
-                            <i class="fa fa-star-of-david"></i>
-                        </li>
-                        <?php endforeach; ?>
-                    </ul>
-                </div>
+                <?php $starRating = $productCard['rating']; require __DIR__ . '/star-display.php'; ?>
                 <div class="price-box">
                     <span class="new-price"><?= htmlspecialchars($productCard['display_price']) ?></span>
                     <?php if (!empty($productCard['old_price'])): ?>

@@ -90,15 +90,7 @@
                         </li>
                     </ul>
                 </div>
-                <div class="rating-box">
-                    <ul>
-                        <?php foreach (range(1, 5) as $star): ?>
-                            <li<?= $star > $productCard["rating"] ? ' class="silver-color"' : "" ?>>
-                                <i class="fa fa-star-of-david"></i>
-                            </li>
-                        <?php endforeach; ?>
-                    </ul>
-                </div>
+                <?php $starRating = $productCard['rating']; require __DIR__ . '/star-display.php'; ?>
             </div>
         </div>
     </div>
