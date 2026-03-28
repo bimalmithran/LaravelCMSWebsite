@@ -74,11 +74,22 @@ class LaravelApiClient implements ApiClientInterface
             return "";
         }
 
-        if (
-            preg_match('/^https?:\/\//i', $path) === 1 ||
-            str_starts_with($path, "//") ||
-            str_starts_with($path, "assets/")
-        ) {
+        if (str_starts_with($path, "//") || str_starts_with($path, "assets/")) {
+            return $path;
+        }
+
+        // Absolute URL: if public_base_url is configured, replace the stored host
+        // with the correct public host. This handles existing DB records that were
+        // saved with a localhost or incorrect APP_URL baked in.
+        if (preg_match('/^https?:\/\//i', $path) === 1) {
+            if ($this->publicBaseUrl !== "") {
+                $parsed = parse_url($path);
+                $urlPath = $parsed["path"] ?? "/";
+                if (isset($parsed["query"])) {
+                    $urlPath .= "?" . $parsed["query"];
+                }
+                return rtrim($this->publicBaseUrl, "/") . $urlPath;
+            }
             return $path;
         }
 
