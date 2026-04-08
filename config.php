@@ -8,7 +8,7 @@ return [
     // Used for image/asset URLs in HTML and for browser-side AJAX calls.
     // Leave empty to derive it automatically from api_base_url (only works
     // when the backend is publicly accessible at that same URL).
-    "public_base_url"   => "",
+    "public_base_url"   => "http://localhost:8000",
 
     "api_key"           => "your_storefront_api_key_here",
     "currency_symbol"   => "₹",

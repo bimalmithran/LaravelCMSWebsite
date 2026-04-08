@@ -3815,7 +3815,7 @@ button.li-btn:hover {
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
-    height: 100vh; /* 100% of the browser window height */
+    height: calc(100vh - 86px); /* 100% minus the nominal header height to prevent spilling over */
     width: 100%;
 }
 
@@ -7911,13 +7911,12 @@ button.li-btn:hover {
     color: #333333;
 }
 .header-bottom_area.header-bottom_area-2 {
-    background-color: transparent;
+    background-color: #ffffff;
     border-bottom: 1px solid rgba(0, 0, 0, 0.07);
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
+    position: relative;
     z-index: 1;
+    -webkit-box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, 0.2);
 }
 @media (max-width: 1199px) {
     .header-bottom_area.header-bottom_area-2 {

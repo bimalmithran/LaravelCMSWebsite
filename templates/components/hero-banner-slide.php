@@ -2,7 +2,8 @@
 /** @var array<string, mixed> $heroBanner */
 /** @var int $heroBannerIndex */
 
-$heroBannerImage = trim((string) ($heroBanner["image_url"] ?? ""));
+$heroBannerImageRaw = trim((string) ($heroBanner["image_url"] ?? ""));
+$heroBannerImage = $heroBannerImageRaw !== "" ? $storefront->resolveAssetUrl($heroBannerImageRaw) : "";
 $heroBannerTitle = trim((string) ($heroBanner["title"] ?? ""));
 $heroBannerSubtitle = trim((string) ($heroBanner["subtitle"] ?? ""));
 $heroBannerDescription = trim((string) ($heroBanner["description"] ?? ""));

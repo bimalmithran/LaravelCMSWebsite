@@ -1,7 +1,8 @@
 <?php
 /** @var array<string, mixed>|null $featuredPromoBanner */
 
-$featuredPromoBannerImage = trim((string) ($featuredPromoBanner["image_url"] ?? ""));
+$featuredPromoBannerImageRaw = trim((string) ($featuredPromoBanner["image_url"] ?? ""));
+$featuredPromoBannerImage = $featuredPromoBannerImageRaw !== "" ? $storefront->resolveAssetUrl($featuredPromoBannerImageRaw) : "";
 $featuredPromoBannerTitle = trim((string) ($featuredPromoBanner["title"] ?? ""));
 $featuredPromoBannerSubtitle = trim((string) ($featuredPromoBanner["subtitle"] ?? ""));
 $featuredPromoBannerDescription = trim(

@@ -17,7 +17,8 @@ if (empty($bannerGridBanners)) {
         <div class="row">
             <?php foreach ($bannerGridBanners as $bannerGridItem): ?>
                 <?php
-                $bannerGridImageUrl  = trim((string) ($bannerGridItem["image_url"] ?? ""));
+                $bannerGridImageUrlRaw = trim((string) ($bannerGridItem["image_url"] ?? ""));
+                $bannerGridImageUrl = $bannerGridImageUrlRaw !== "" ? $storefront->resolveAssetUrl($bannerGridImageUrlRaw) : "";
                 $bannerGridActionUrl = trim((string) ($bannerGridItem["action_url"] ?? ""));
                 $bannerGridTitle     = trim((string) ($bannerGridItem["title"] ?? "Hiraola's Banner"));
                 if ($bannerGridImageUrl === "") {
