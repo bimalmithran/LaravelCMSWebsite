@@ -12,6 +12,7 @@ $socialFacebook  = htmlspecialchars($footer['social']['facebook'], ENT_QUOTES);
 $socialTwitter   = htmlspecialchars($footer['social']['twitter'], ENT_QUOTES);
 $socialInstagram = htmlspecialchars($footer['social']['instagram'], ENT_QUOTES);
 $productLinks    = $footer['footer_product_links'];
+$policiesLinks   = $footer['footer_policies_links'] ?? [];
 $bottomLinks     = $footer['footer_bottom_links'];
 $copyrightYear   = date('Y');
 ?>
@@ -100,6 +101,22 @@ $copyrightYear   = date('Y');
                                     </ul>
                                 </div>
                             </div>
+                            <div class="col-lg-4">
+                                <div class="footer-widgets_title">
+                                    <h6>Our Policies</h6>
+                                </div>
+                                <div class="footer-widgets">
+                                    <ul>
+                                        <?php foreach ($policiesLinks as $link): ?>
+                                        <li>
+                                            <a href="<?= htmlspecialchars($link['url'] ?? '#', ENT_QUOTES) ?>">
+                                                <?= htmlspecialchars($link['name'], ENT_QUOTES) ?>
+                                            </a>
+                                        </li>
+                                        <?php endforeach; ?>
+                                    </ul>
+                                </div>
+                            </div>
                             <div class="col-lg-5">
                                 <div class="footer-widgets_info">
                                     <div class="footer-widgets_title">
@@ -132,44 +149,48 @@ $copyrightYear   = date('Y');
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-4">
-                                <div class="instagram-container footer-widgets_area">
-                                    <div class="footer-widgets_title">
-                                        <h6>Sign Up For Newsletter</h6>
-                                    </div>
-                                    <div class="widget-short_desc">
-                                        <p>
-                                            Subscribe to our newsletters now and stay
-                                            up-to-date with new collections
-                                        </p>
-                                    </div>
-                                    <div class="newsletter-form_wrap">
-                                        <form
-                                            class="subscribe-form"
-                                            id="footer-newsletter-form"
-                                        >
-                                            <input
-                                                class="newsletter-input"
-                                                id="footer-newsletter-email"
-                                                type="email"
-                                                autocomplete="off"
-                                                name="email"
-                                                placeholder="Enter Your Email"
-                                            />
-                                            <button
-                                                class="newsletter-btn"
-                                                type="submit"
-                                            >
-                                                <i class="ion-android-mail"></i>
-                                            </button>
-                                        </form>
-                                        <div class="mailchimp-alerts mt-3">
-                                            <div class="mailchimp-submitting"></div>
-                                            <div class="mailchimp-success"></div>
-                                            <div class="mailchimp-error"></div>
-                                        </div>
-                                    </div>
-                                </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row mt-5">
+                <div class="col-lg-6 offset-lg-3 text-center">
+                    <div class="footer-widgets_area">
+                        <div class="footer-widgets_title">
+                            <h6>Sign Up For Newsletter</h6>
+                        </div>
+                        <div class="widget-short_desc">
+                            <p>
+                                Subscribe to our newsletters now and stay
+                                up-to-date with new collections
+                            </p>
+                        </div>
+                        <div class="newsletter-form_wrap">
+                            <form
+                                class="subscribe-form"
+                                id="footer-newsletter-form"
+                            >
+                                <input
+                                    class="newsletter-input"
+                                    id="footer-newsletter-email"
+                                    type="email"
+                                    autocomplete="off"
+                                    name="email"
+                                    placeholder="Enter Your Email"
+                                />
+                                <button
+                                    class="newsletter-btn"
+                                    type="submit"
+                                >
+                                    <i class="ion-android-mail"></i>
+                                </button>
+                            </form>
+                            <div class="mailchimp-alerts mt-3">
+                                <div class="mailchimp-submitting"></div>
+                                <div class="mailchimp-success"></div>
+                                <div class="mailchimp-error"></div>
                             </div>
                         </div>
                     </div>

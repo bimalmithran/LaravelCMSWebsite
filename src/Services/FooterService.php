@@ -41,6 +41,7 @@ class FooterService
                 'instagram' => (string) ($settings['social_instagram'] ?? ''),
             ],
             'footer_product_links' => $this->resolveMenuLinks($menus, 'footer-product'),
+            'footer_policies_links'=> $this->resolveMenuLinks($menus, 'footer-policies'),
             'footer_bottom_links'  => $this->resolveMenuLinks($menus, 'footer-bottom'),
         ];
     }
