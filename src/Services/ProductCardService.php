@@ -75,7 +75,7 @@ class ProductCardService
         return [
             "id" => (int) ($product["id"] ?? 0),
             "name" => $name,
-            "link" => "product.php?id=" . ((int) ($product["id"] ?? 0)),
+            "link" => "product.php?slug=" . urlencode((string) ($product["slug"] ?? "")),
             "primary_image" => $this->resolveImage($product),
             "secondary_image" => $this->resolveImage($product, 1),
             "badge_class" => $isOnSale ? "sticker-2" : "sticker",

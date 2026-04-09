@@ -2,7 +2,9 @@
 require_once __DIR__ . '/bootstrap.php';
 
 $id = isset($_GET['id']) ? (int) $_GET['id'] : 0;
-if ($id <= 0) {
+$slug = isset($_GET['slug']) ? trim((string) $_GET['slug']) : '';
+
+if ($id <= 0 && $slug === '') {
     header('Location: shop.php');
     exit;
 }
@@ -13,7 +15,16 @@ $productDetailService = new \App\Services\ProductDetailService(
     $currencySymbol
 );
 
-$product = $productDetailService->getProductData($id);
+if ($slug !== '') {
+    $product = $productDetailService->getProductData($slug, true);
+} else {
+    $product = $productDetailService->getProductData($id);
+}
+
+if ($product !== null) {
+    $id = (int) $product['id'];
+}
+
 
 if ($product === null) {
     http_response_code(404);
@@ -28,6 +39,7 @@ if ($product === null) {
 }
 
 $pageTitle   = htmlspecialchars($product['name']) . ' || TT Devassy Jewellery';
+$pageMetaDescription = strip_tags($product['short_description']); // Set SEO description
 $breadcrumb  = $product['name'];
 $images      = $product['images'];
 $firstImage  = $images[0] ?? 'assets/images/product/large-size/1.jpg';

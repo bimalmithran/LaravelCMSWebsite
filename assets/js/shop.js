@@ -69,7 +69,7 @@
                         '<img src="' + imgUrl + '" alt="' + $('<div>').text(name).html() + '">' +
                     '</div>' +
                     '<div class="product-item_content">' +
-                        '<a class="product-item_title" href="product.php?id=' + productId + '">' + $('<div>').text(name).html() + '</a>' +
+                        '<a class="product-item_title" href="product.php?slug=' + encodeURIComponent(product.slug || '') + '">' + $('<div>').text(name).html() + '</a>' +
                         '<span class="product-item_quantity">' + qty + ' x ' + currency + price + '</span>' +
                     '</div>' +
                 '</li>'

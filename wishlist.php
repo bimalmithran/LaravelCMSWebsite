@@ -72,12 +72,12 @@ require_once __DIR__ . '/templates/header-inner.php';
                                 </a>
                             </td>
                             <td class="hiraola-product-thumbnail">
-                                <a href="product.php?id=<?= $productId ?>">
+                                <a href="product.php?slug=<?= urlencode($slug) ?>">
                                     <img src="<?= htmlspecialchars($imgUrl, ENT_QUOTES) ?>" alt="<?= $name ?>" style="width:80px;height:80px;object-fit:cover;">
                                 </a>
                             </td>
                             <td class="hiraola-product-name">
-                                <a href="product.php?id=<?= $productId ?>"><?= $name ?></a>
+                                <a href="product.php?slug=<?= urlencode($slug) ?>"><?= $name ?></a>
                             </td>
                             <td class="hiraola-product-price">
                                 <span class="amount"><?= $currencySymbol ?><?= number_format($price, 2) ?></span>

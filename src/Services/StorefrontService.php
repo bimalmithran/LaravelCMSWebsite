@@ -192,6 +192,17 @@ class StorefrontService
     }
 
     /**
+     * Fetch a single active product by Slug.
+     *
+     * @return array<string, mixed>|null
+     */
+    public function getProductBySlug(string $slug): ?array
+    {
+        $data = $this->api->get("/products/slug/" . urlencode($slug));
+        return ($data !== [] && $data !== null) ? $data : null;
+    }
+
+    /**
      * Fetch related products for a given product (same category).
      *
      * @return array<int, array<string, mixed>>

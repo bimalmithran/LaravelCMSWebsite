@@ -43,7 +43,7 @@ $mapped = array_map(function (array $p) use ($storefront, $currencySymbol): arra
         'name'  => (string) ($p['name'] ?? ''),
         'price' => $currencySymbol . number_format($displayPrice, 2),
         'image' => $image,
-        'link'  => 'product.php?id=' . ((int) ($p['id'] ?? 0)),
+        'link'  => 'product.php?slug=' . urlencode((string) ($p['slug'] ?? '')),
     ];
 }, $results);
 

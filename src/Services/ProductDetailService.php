@@ -23,11 +23,15 @@ class ProductDetailService
      *
      * Returns null when the product doesn't exist or is inactive.
      *
+     * @param int|string $identifier
      * @return array<string, mixed>|null
      */
-    public function getProductData(int $id): ?array
+    public function getProductData($identifier, bool $isSlug = false): ?array
     {
-        $product = $this->storefront->getProduct($id);
+        $product = $isSlug
+            ? $this->storefront->getProductBySlug((string) $identifier)
+            : $this->storefront->getProduct((int) $identifier);
+            
         if ($product === null) {
             return null;
         }

@@ -11,7 +11,7 @@ $headerCategories = $storefront->getCategories(null, false);
 $logoUrl         = $headerData['logo_url'];
 $faviconUrl      = $headerData['favicon_url'];
 $siteName        = htmlspecialchars($headerData['site_name'], ENT_QUOTES);
-$metaDescription = htmlspecialchars($headerData['meta_description'], ENT_QUOTES);
+$metaDescription = $pageMetaDescription ?? htmlspecialchars($headerData['meta_description'], ENT_QUOTES);
 $defaultTitle    = $siteName !== '' ? $siteName : 'TT Devassy Jewellery';
 ?>
 <!doctype html>
