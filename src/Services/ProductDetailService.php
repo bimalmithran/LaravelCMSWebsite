@@ -46,6 +46,7 @@ class ProductDetailService
         return [
             'id'                => (int) ($product['id'] ?? 0),
             'name'              => (string) ($product['name'] ?? ''),
+            'slug'              => (string) ($product['slug'] ?? ''),
             'sku'               => (string) ($product['sku'] ?? ''),
             'short_description' => (string) ($product['short_description'] ?? ''),
             'description'       => (string) ($product['description'] ?? ''),
@@ -53,6 +54,7 @@ class ProductDetailService
             'rating'            => max(0, min(5, (int) round((float) ($product['rating_avg'] ?? 0)))),
             'rating_count'      => (int) ($product['rating_count'] ?? 0),
             'display_price'     => $this->currencySymbol . number_format($displayPrice, 2),
+            'raw_price'         => $displayPrice,
             'old_price'         => $isOnSale ? $this->currencySymbol . number_format($price, 2) : null,
             'images'            => $this->resolveImages($product),
             'sizes'             => $this->extractSizes($product),
@@ -62,7 +64,7 @@ class ProductDetailService
             'specs'             => $this->extractSpecs($product),
             'reviews'           => $this->extractReviews($product),
             'related_products'  => $this->productCard->mapProducts(
-                $this->storefront->getRelatedProducts($id, 6)
+                $this->storefront->getRelatedProducts((int) ($product['id'] ?? 0), 6)
             ),
         ];
     }

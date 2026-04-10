@@ -23,6 +23,11 @@ if ($slug !== '') {
 
 if ($product !== null) {
     $id = (int) $product['id'];
+    // Redirect ?id= URLs to the canonical slug URL (301 for SEO)
+    if ($slug === '' && $product['slug'] !== '') {
+        header('Location: product.php?slug=' . urlencode($product['slug']), true, 301);
+        exit;
+    }
 }
 
 
@@ -38,12 +43,41 @@ if ($product === null) {
     exit;
 }
 
-$pageTitle   = htmlspecialchars($product['name']) . ' || TT Devassy Jewellery';
-$pageMetaDescription = strip_tags($product['short_description']); // Set SEO description
-$breadcrumb  = $product['name'];
-$images      = $product['images'];
-$firstImage  = $images[0] ?? 'assets/images/product/large-size/1.jpg';
-$reviewCount = count($product['reviews']);
+$pageTitle          = htmlspecialchars($product['name']) . ' || TT Devassy Jewellery';
+$pageMetaDescription = htmlspecialchars(trim(strip_tags($product['short_description'])), ENT_QUOTES);
+$breadcrumb         = $product['name'];
+$images             = $product['images'];
+$firstImage         = $images[0] ?? 'assets/images/product/large-size/1.jpg';
+$reviewCount        = count($product['reviews']);
+
+$_protocol      = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') ? 'https' : 'http';
+$_host          = $_SERVER['HTTP_HOST'] ?? '';
+$_canonicalSlug = $product['slug'] !== '' ? $product['slug'] : (string) $id;
+$pageCanonical  = $_protocol . '://' . $_host . '/tt/product.php?slug=' . urlencode($_canonicalSlug);
+$pageOgImage    = strpos($firstImage, 'http') === 0 ? $firstImage : $_protocol . '://' . $_host . '/tt/' . ltrim($firstImage, '/');
+$pageJsonLd     = json_encode([
+    '@context'    => 'https://schema.org/',
+    '@type'       => 'Product',
+    'name'        => $product['name'],
+    'description' => strip_tags($product['short_description'] ?: $product['description']),
+    'image'       => $images,
+    'sku'         => $product['sku'],
+    'brand'       => $product['brand'] !== '' ? ['@type' => 'Brand', 'name' => $product['brand']] : null,
+    'offers'      => [
+        '@type'         => 'Offer',
+        'priceCurrency' => 'INR',
+        'price'         => $product['raw_price'],
+        'availability'  => $product['stock'] > 0
+            ? 'https://schema.org/InStock'
+            : 'https://schema.org/OutOfStock',
+        'url'           => $pageCanonical,
+    ],
+    'aggregateRating' => $product['rating_count'] > 0 ? [
+        '@type'       => 'AggregateRating',
+        'ratingValue' => $product['rating'],
+        'reviewCount' => $product['rating_count'],
+    ] : null,
+], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
 
 require_once __DIR__ . '/templates/header-inner.php';
 ?>
@@ -362,7 +396,7 @@ require_once __DIR__ . '/templates/header-inner.php';
                         </form>
                         <?php else: ?>
                         <p style="color:#555;">
-                            <a href="login.php?next=<?= urlencode('product.php?id=' . $id) ?>">Log in</a>
+                            <a href="login.php?next=<?= urlencode('product.php?slug=' . ($product['slug'] !== '' ? $product['slug'] : $id)) ?>">Log in</a>
                             to write a review.
                         </p>
                         <?php endif; ?>

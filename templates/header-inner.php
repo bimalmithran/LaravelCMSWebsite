@@ -21,9 +21,31 @@ $defaultTitle    = $siteName !== '' ? $siteName : 'TT Devassy Jewellery';
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title><?= htmlspecialchars($pageTitle ?? $defaultTitle) ?></title>
-    <meta name="robots" content="noindex, follow" />
+    <meta name="robots" content="index, follow" />
     <meta name="description" content="<?= $metaDescription ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <?php if (!empty($pageCanonical)): ?>
+    <link rel="canonical" href="<?= htmlspecialchars($pageCanonical, ENT_QUOTES) ?>" />
+    <!-- Open Graph -->
+    <meta property="og:type"        content="product" />
+    <meta property="og:title"       content="<?= htmlspecialchars($pageTitle ?? $defaultTitle, ENT_QUOTES) ?>" />
+    <meta property="og:description" content="<?= $metaDescription ?>" />
+    <meta property="og:url"         content="<?= htmlspecialchars($pageCanonical, ENT_QUOTES) ?>" />
+    <?php if (!empty($pageOgImage)): ?>
+    <meta property="og:image"       content="<?= htmlspecialchars($pageOgImage, ENT_QUOTES) ?>" />
+    <?php endif; ?>
+    <!-- Twitter Card -->
+    <meta name="twitter:card"        content="summary_large_image" />
+    <meta name="twitter:title"       content="<?= htmlspecialchars($pageTitle ?? $defaultTitle, ENT_QUOTES) ?>" />
+    <meta name="twitter:description" content="<?= $metaDescription ?>" />
+    <?php if (!empty($pageOgImage)): ?>
+    <meta name="twitter:image"       content="<?= htmlspecialchars($pageOgImage, ENT_QUOTES) ?>" />
+    <?php endif; ?>
+    <!-- JSON-LD Structured Data -->
+    <?php if (!empty($pageJsonLd)): ?>
+    <script type="application/ld+json"><?= $pageJsonLd ?></script>
+    <?php endif; ?>
+    <?php endif; ?>
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon"
           href="<?= $faviconUrl !== '' ? htmlspecialchars($faviconUrl, ENT_QUOTES) : 'assets/images/favicon.ico' ?>">
