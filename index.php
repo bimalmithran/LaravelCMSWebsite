@@ -121,7 +121,7 @@ require_once __DIR__ . "/templates/header-home.php";
             var mobile  = el.dataset.bgMobile  || '';
             var chosen  = desktop;
             if (w <= 767 && mobile)  chosen = mobile;
-            else if (w <= 991 && tablet) chosen = tablet;
+            else if (w <= 1199 && tablet) chosen = tablet;
             el.style.backgroundImage = "url('" + chosen + "')";
         });
     }

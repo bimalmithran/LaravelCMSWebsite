@@ -30,7 +30,7 @@ if (
 <style>
     .featured-promo-bg { background-image: url('<?= htmlspecialchars($featuredPromoBannerDesktop, ENT_QUOTES) ?>'); }
     <?php if ($featuredPromoBannerTablet !== ""): ?>
-    @media (max-width: 991px) {
+    @media (max-width: 1199px) {
         .featured-promo-bg { background-image: url('<?= htmlspecialchars($featuredPromoBannerTablet, ENT_QUOTES) ?>'); }
     }
     <?php endif; ?>

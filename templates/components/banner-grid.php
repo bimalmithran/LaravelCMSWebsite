@@ -40,7 +40,7 @@ if (empty($bannerGridBanners)) {
                                     <source media="(max-width: 767px)" srcset="<?= htmlspecialchars($bannerGridMobileUrl) ?>">
                                 <?php endif; ?>
                                 <?php if ($bannerGridTabletUrl !== ""): ?>
-                                    <source media="(max-width: 991px)" srcset="<?= htmlspecialchars($bannerGridTabletUrl) ?>">
+                                    <source media="(max-width: 1199px)" srcset="<?= htmlspecialchars($bannerGridTabletUrl) ?>">
                                 <?php endif; ?>
                                 <img
                                     class="img-full"
