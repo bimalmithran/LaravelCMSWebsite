@@ -1,23 +1,23 @@
 <?php
 /** @var array<string, mixed>|null $featuredPromoBanner */
 
-$featuredPromoBannerImageRaw = trim((string) ($featuredPromoBanner["image_url"] ?? ""));
-$featuredPromoBannerImage = $featuredPromoBannerImageRaw !== "" ? $storefront->resolveAssetUrl($featuredPromoBannerImageRaw) : "";
-$featuredPromoBannerTitle = trim((string) ($featuredPromoBanner["title"] ?? ""));
-$featuredPromoBannerSubtitle = trim((string) ($featuredPromoBanner["subtitle"] ?? ""));
-$featuredPromoBannerDescription = trim(
-    (string) ($featuredPromoBanner["description"] ?? ""),
-);
-$featuredPromoBannerPriceText = trim(
-    (string) ($featuredPromoBanner["price_text"] ?? ""),
-);
-$featuredPromoBannerButtonText = trim(
-    (string) ($featuredPromoBanner["button_text"] ?? ""),
-);
-$featuredPromoBannerActionUrl = trim((string) ($featuredPromoBanner["action_url"] ?? ""));
+$featuredPromoBannerDesktopRaw = trim((string) ($featuredPromoBanner["image_url"] ?? ""));
+$featuredPromoBannerTabletRaw  = trim((string) ($featuredPromoBanner["tablet_image_url"] ?? ""));
+$featuredPromoBannerMobileRaw  = trim((string) ($featuredPromoBanner["mobile_image_url"] ?? ""));
+
+$featuredPromoBannerDesktop = $featuredPromoBannerDesktopRaw !== "" ? $storefront->resolveAssetUrl($featuredPromoBannerDesktopRaw) : "";
+$featuredPromoBannerTablet  = $featuredPromoBannerTabletRaw !== "" ? $storefront->resolveAssetUrl($featuredPromoBannerTabletRaw) : "";
+$featuredPromoBannerMobile  = $featuredPromoBannerMobileRaw !== "" ? $storefront->resolveAssetUrl($featuredPromoBannerMobileRaw) : "";
+
+$featuredPromoBannerTitle       = trim((string) ($featuredPromoBanner["title"] ?? ""));
+$featuredPromoBannerSubtitle    = trim((string) ($featuredPromoBanner["subtitle"] ?? ""));
+$featuredPromoBannerDescription = trim((string) ($featuredPromoBanner["description"] ?? ""));
+$featuredPromoBannerPriceText   = trim((string) ($featuredPromoBanner["price_text"] ?? ""));
+$featuredPromoBannerButtonText  = trim((string) ($featuredPromoBanner["button_text"] ?? ""));
+$featuredPromoBannerActionUrl   = trim((string) ($featuredPromoBanner["action_url"] ?? ""));
 
 if (
-    $featuredPromoBannerImage === "" &&
+    $featuredPromoBannerDesktop === "" &&
     $featuredPromoBannerTitle === "" &&
     $featuredPromoBannerSubtitle === "" &&
     $featuredPromoBannerDescription === "" &&
@@ -26,16 +26,26 @@ if (
     return;
 }
 ?>
+<?php if ($featuredPromoBannerDesktop !== ""): ?>
+<style>
+    .featured-promo-bg { background-image: url('<?= htmlspecialchars($featuredPromoBannerDesktop, ENT_QUOTES) ?>'); }
+    <?php if ($featuredPromoBannerTablet !== ""): ?>
+    @media (max-width: 991px) {
+        .featured-promo-bg { background-image: url('<?= htmlspecialchars($featuredPromoBannerTablet, ENT_QUOTES) ?>'); }
+    }
+    <?php endif; ?>
+    <?php if ($featuredPromoBannerMobile !== ""): ?>
+    @media (max-width: 767px) {
+        .featured-promo-bg { background-image: url('<?= htmlspecialchars($featuredPromoBannerMobile, ENT_QUOTES) ?>'); }
+    }
+    <?php endif; ?>
+</style>
+<?php endif; ?>
 <div class="static-banner_area">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <div
-                    class="static-banner-image"
-                    style="background-image: <?= $featuredPromoBannerImage !== ""
-                        ? "url('" . htmlspecialchars($featuredPromoBannerImage) . "')"
-                        : "none" ?>;"
-                >
+                <div class="static-banner-image featured-promo-bg">
                     <?php if ($featuredPromoBannerTitle !== "" || $featuredPromoBannerSubtitle !== "" || $featuredPromoBannerDescription !== "" || $featuredPromoBannerPriceText !== "" || ($featuredPromoBannerActionUrl !== "" && $featuredPromoBannerButtonText !== "")): ?>
                         <div class="static-banner-content">
                             <?php if ($featuredPromoBannerDescription !== ""): ?>

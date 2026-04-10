@@ -2,26 +2,32 @@
 /** @var array<string, mixed> $heroBanner */
 /** @var int $heroBannerIndex */
 
-$heroBannerImageRaw = trim((string) ($heroBanner["image_url"] ?? ""));
-$heroBannerImage = $heroBannerImageRaw !== "" ? $storefront->resolveAssetUrl($heroBannerImageRaw) : "";
-$heroBannerTitle = trim((string) ($heroBanner["title"] ?? ""));
-$heroBannerSubtitle = trim((string) ($heroBanner["subtitle"] ?? ""));
-$heroBannerDescription = trim((string) ($heroBanner["description"] ?? ""));
-$heroBannerPriceText = trim((string) ($heroBanner["price_text"] ?? ""));
-$heroBannerButtonText = trim((string) ($heroBanner["button_text"] ?? ""));
-$heroBannerActionUrl = trim((string) ($heroBanner["action_url"] ?? ""));
+$heroBannerDesktopRaw = trim((string) ($heroBanner["image_url"] ?? ""));
+$heroBannerTabletRaw  = trim((string) ($heroBanner["tablet_image_url"] ?? ""));
+$heroBannerMobileRaw  = trim((string) ($heroBanner["mobile_image_url"] ?? ""));
 
-if ($heroBannerImage === "" && $heroBannerTitle === "" && $heroBannerSubtitle === "") {
+// A hero slide without a background image is blank — skip it entirely.
+if ($heroBannerDesktopRaw === "") {
     return;
 }
-?>
-<div class="single-slide animation-style-0<?= $heroBannerIndex % 2 === 0
-    ? "1"
-    : "2" ?> dynamic-slide-bg"
-     style="background-image: <?= $heroBannerImage !== ""
-         ? "url('" . htmlspecialchars($heroBannerImage) . "')"
-         : "none" ?>;">
 
+$heroBannerDesktop = $storefront->resolveAssetUrl($heroBannerDesktopRaw);
+$heroBannerTablet  = $heroBannerTabletRaw !== "" ? $storefront->resolveAssetUrl($heroBannerTabletRaw) : "";
+$heroBannerMobile  = $heroBannerMobileRaw !== "" ? $storefront->resolveAssetUrl($heroBannerMobileRaw) : "";
+
+$heroBannerTitle       = trim((string) ($heroBanner["title"] ?? ""));
+$heroBannerSubtitle    = trim((string) ($heroBanner["subtitle"] ?? ""));
+$heroBannerDescription = trim((string) ($heroBanner["description"] ?? ""));
+$heroBannerPriceText   = trim((string) ($heroBanner["price_text"] ?? ""));
+$heroBannerButtonText  = trim((string) ($heroBanner["button_text"] ?? ""));
+$heroBannerActionUrl   = trim((string) ($heroBanner["action_url"] ?? ""));
+?>
+<div class="single-slide animation-style-0<?= $heroBannerIndex % 2 === 0 ? "1" : "2" ?> dynamic-slide-bg"
+     style="background-image: url('<?= htmlspecialchars($heroBannerDesktop, ENT_QUOTES) ?>');"
+     data-bg-desktop="<?= htmlspecialchars($heroBannerDesktop, ENT_QUOTES) ?>"
+     <?php if ($heroBannerTablet !== ""): ?>data-bg-tablet="<?= htmlspecialchars($heroBannerTablet, ENT_QUOTES) ?>"<?php endif; ?>
+     <?php if ($heroBannerMobile !== ""): ?>data-bg-mobile="<?= htmlspecialchars($heroBannerMobile, ENT_QUOTES) ?>"<?php endif; ?>
+>
     <div class="container">
         <?php if ($heroBannerTitle !== "" || $heroBannerSubtitle !== "" || $heroBannerDescription !== "" || $heroBannerPriceText !== ""): ?>
             <div class="slider-content">

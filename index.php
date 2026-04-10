@@ -111,6 +111,24 @@ require_once __DIR__ . "/templates/header-home.php";
         <?php endforeach; ?>
     </div>
 </div>
+<script>
+(function () {
+    function applyResponsiveSlideBg() {
+        var w = window.innerWidth;
+        document.querySelectorAll('.dynamic-slide-bg[data-bg-desktop]').forEach(function (el) {
+            var desktop = el.dataset.bgDesktop;
+            var tablet  = el.dataset.bgTablet  || '';
+            var mobile  = el.dataset.bgMobile  || '';
+            var chosen  = desktop;
+            if (w <= 767 && mobile)  chosen = mobile;
+            else if (w <= 991 && tablet) chosen = tablet;
+            el.style.backgroundImage = "url('" + chosen + "')";
+        });
+    }
+    applyResponsiveSlideBg();
+    window.addEventListener('resize', applyResponsiveSlideBg);
+})();
+</script>
 
 <!-- Begin Hiraola's Shipping Area Two -->
 <?php if (!empty($storeHighlights)): ?>
